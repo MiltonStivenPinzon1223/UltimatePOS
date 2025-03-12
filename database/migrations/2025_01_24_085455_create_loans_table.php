@@ -18,7 +18,9 @@ return new class extends Migration
             $table->foreignId('contacts_id');
             $table->foreignId('users_id');
             $table->float('amount');
-            $table->integer('status');
+            $table->integer('type');
+            $table->integer('observation')->nullable();
+            $table->float('balance');
             $table->timestamps();
         });
     }
