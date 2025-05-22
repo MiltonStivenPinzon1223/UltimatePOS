@@ -1,0 +1,16 @@
+{
+    "name": "Manufacturing",
+    "alias": "Manufacturing",
+    "description": "Se utiliza para empresas donde es necesario fabricar productos.",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Manufacturing\\Providers\\ManufacturingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        
+    ],
+    "requires": []
+}

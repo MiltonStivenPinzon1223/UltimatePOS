@@ -29,8 +29,6 @@ use App\Http\Controllers\InvoiceLayoutController;
 use App\Http\Controllers\InvoiceSchemeController;
 use App\Http\Controllers\LabelsController;
 use App\Http\Controllers\LedgerDiscountController;
-use App\Http\Controllers\LoanController;
-use App\Http\Controllers\LoanPaymentController;
 use App\Http\Controllers\LocationSettingsController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\NotificationController;
@@ -131,7 +129,7 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
 
     Route::resource('brands', BrandController::class);
 
-    // Route::resource('payment-account', 'PaymentAccountController');
+    Route::resource('payment-account', 'PaymentAccountController');
 
     Route::resource('tax-rates', TaxRateController::class);
 
@@ -233,7 +231,10 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::get('/sells/pos/get-product-suggestion', [SellPosController::class, 'getProductSuggestion']);
     Route::get('/sells/pos/get-featured-products/{location_id}', [SellPosController::class, 'getFeaturedProducts']);
     Route::get('/reset-mapping', [SellController::class, 'resetMapping']);
-
+    // pos display screen route
+    Route::get('/customer-display', [SellPosController::class, 'posDisplay'])->name('pos_display');
+    Route::get('/pos/variation/{variation_id}/{location_id}', [\App\Http\Controllers\ProductController::class, 'getVarationDetail']);
+    // end pos display screen route
     Route::resource('pos', SellPosController::class);
 
     Route::resource('roles', RoleController::class);
@@ -319,6 +320,8 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
 
     //Expenses...
     Route::resource('expenses', ExpenseController::class);
+    Route::get('import-expense', [ExpenseController::class, 'importExpense']);
+    Route::post('store-import-expense', [ExpenseController::class, 'storeExpenseImport']);
 
     //Transaction payments...
     // Route::get('/payments/opening-balance/{contact_id}', 'TransactionPaymentController@getOpeningBalancePayments');
@@ -326,8 +329,7 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::get('/payments/view-payment/{payment_id}', [TransactionPaymentController::class, 'viewPayment']);
     Route::get('/payments/add_payment/{transaction_id}', [TransactionPaymentController::class, 'addPayment']);
     Route::get('/payments/pay-contact-due/{contact_id}', [TransactionPaymentController::class, 'getPayContactDue']);
-    Route::post('/payments/pay-contact-due', [TransactionPaymentController::class, 'postPayContactDue'])->name('postPayContactDue');
-    Route::post('payments/add', [TransactionPaymentController::class, 'add_payment']);
+    Route::post('/payments/pay-contact-due', [TransactionPaymentController::class, 'postPayContactDue']);
     Route::resource('payments', TransactionPaymentController::class);
 
     //Printers...
@@ -487,13 +489,6 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     Route::put('update-sales-orders/{id}/status', [SalesOrderController::class, 'postEditSalesOrderStatus']);
     Route::get('reports/activity-log', [ReportController::class, 'activityLog']);
     Route::get('user-location/{latlng}', [HomeController::class, 'getUserLocation']);
-
-
-    //Nuevas rutas
-
-    Route::get('loan/payments/sum/{id}', [LoanPaymentController::class, 'sum'])->name('loan.payments.sum');
-    Route::resource('loan/payments', LoanPaymentController::class)->names('loan.payments');
-    Route::resource('loans', LoanController::class)->names('loans');
 });
 
 // Route::middleware(['EcomApi'])->prefix('api/ecom')->group(function () {

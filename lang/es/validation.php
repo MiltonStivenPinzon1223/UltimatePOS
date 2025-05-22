@@ -87,6 +87,8 @@ return [
     'unique' => ':attribute ya ha sido registrado.',
     'uploaded' => 'Subir :attribute ha fallado.',
     'url' => 'El formato :attribute es inválido.',
+    
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -105,6 +107,7 @@ return [
         ],
         'email' => [
             'unique' => 'El :attribute ya ha sido registrado.',
+            
         ],
     ],
 
@@ -131,7 +134,7 @@ return [
         'country' => 'país',
         'address' => 'dirección',
         'phone' => 'teléfono',
-        'mobile' => 'móvil',
+        'mobile' => 'celular',
         'age' => 'edad',
         'sex' => 'sexo',
         'gender' => 'género',
@@ -150,6 +153,12 @@ return [
         'time' => 'hora',
         'subject' => 'asunto',
         'message' => 'mensaje',
+    ],
+    
+    'custom-messages' => [
+        'quantity_not_available' => 'No hay esa Cantidad',
+        'this_field_is_required' => 'Este dato es obligatorio',
+        
     ],
 
 ];

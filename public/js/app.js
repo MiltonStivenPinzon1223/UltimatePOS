@@ -1456,6 +1456,7 @@ $(document).ready(function() {
             url: '/expenses',
             data: function(d) {
                 d.expense_for = $('select#expense_for').val();
+                d.created_by = $('select#created_by').val();
                 d.contact_id = $('select#expense_contact_filter').val();
                 d.location_id = $('select#location_id').val();
                 d.expense_category_id = $('select#expense_category_id').val();
@@ -1504,7 +1505,7 @@ $(document).ready(function() {
         },
     });
 
-    $('select#location_id, select#expense_for, select#expense_contact_filter, \
+    $('select#location_id, select#expense_for, select#created_by, select#select#expense_contact_filter, \
         select#expense_category_id, select#expense_payment_status, \
         select#expense_sub_category_id_filter').on(
         'change',
@@ -2025,25 +2026,20 @@ $(document).ready(function() {
         placeholder: LANG.search,
     });
 
-    $('#search_settings').change(function(){
-        // Get label position and add active class to the tab
+    $('#search_settings').change( function(){
+        //Get label position and add active class to the tab
         var label_index = $(this).val();
         var label = label_objects[label_index];
         $('.pos-tab-content.active').removeClass('active');
         var tab_content = label.closest('.pos-tab-content');
         tab_content.addClass('active');
-        var tab_index = $('.pos-tab-content').index(tab_content);
+        tab_index = $('.pos-tab-content').index(tab_content);
         $('.list-group-item.active').removeClass('active');
         $('.list-group-item').eq(tab_index).addClass('active');
-            
-        // Scroll the container to the target element
-        var container = $('#scrollable-container');
-        var targetOffset = label.offset().top + container.scrollTop() - container.offset().top;
-        
-        container.animate({
-            scrollTop: targetOffset - 100 // Adjust offset as needed
+        //Highlight the label for three seconds
+        $([document.documentElement, document.body]).animate({
+            scrollTop: label.offset().top - 100
         }, 500);
-        
         label.css('background-color', 'yellow');
         setTimeout(function(){ 
             label.css('background-color', ''); 

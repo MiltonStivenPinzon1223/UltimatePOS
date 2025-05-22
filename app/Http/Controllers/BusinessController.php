@@ -437,14 +437,28 @@ class BusinessController extends Controller
             $shortcuts = $request->input('shortcuts');
             $business_details['keyboard_shortcuts'] = json_encode($shortcuts);
 
-            //pos_settings
-            $pos_settings = $request->input('pos_settings');
+           // Get existing pos_settings
+            $pos_settings = $request->input('pos_settings', []);
+
+            $pre_busines_detail = $this->businessUtil->getDetails($business_id);
+            $pre_pos_setting = json_decode($pre_busines_detail->pos_settings, true) ?? [];
+            for ($i = 1; $i <= 10; $i++) {
+                $inputName = "carousel_image_$i"; // Image field names should be like carousel_image_1, carousel_image_2, etc.
+
+                if ($request->hasFile($inputName)) {
+                    $image_name = $this->businessUtil->uploadFile($request, $inputName, 'carousel_images', 'image');
+                    $pos_settings[$inputName] = $image_name; // Store image URL inside pos_settings
+                }else if (isset($pre_pos_setting[$inputName])){
+                    $pos_settings[$inputName] = $pre_pos_setting[$inputName] ?? null;
+                }
+            }
             $default_pos_settings = $this->businessUtil->defaultPosSettings();
             foreach ($default_pos_settings as $key => $value) {
                 if (! isset($pos_settings[$key])) {
                     $pos_settings[$key] = $value;
                 }
             }
+            // Save pos_settings as JSON
             $business_details['pos_settings'] = json_encode($pos_settings);
 
             $business_details['custom_labels'] = json_encode($business_details['custom_labels']);

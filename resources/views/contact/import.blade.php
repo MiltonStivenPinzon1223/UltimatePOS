@@ -7,8 +7,35 @@
 <section class="content-header">
     <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('lang_v1.import_contacts')
     </h1>
-</section>
+&nbsp;&nbsp;&nbsp;&nbsp;Ver Video <button style='font-size:30px;color:red'><i class='fab fa-youtube id='modal-video-tutorial' data-toggle="modal" data-target="#stack"></i></button>
+					
 
+	    </h4>
+       
+       
+    <div data-width="500" tabindex="-1" class="modal fade" id="stack" style="display: none;">
+     <div class="modal-dialog">
+        <div class="modal-content" style="padding-bottom: 40px">
+               <div class="modal-header">
+                  <button type="button" id='close-modal' class="close" data-dismiss="modal" rel=0;aria-hidden="true"></button>
+                <div id="title-tutorial">
+                Modulo Grupo de Clientes               
+                </div>
+        </div>
+            <div class="modal-body">
+                <div id="video-tutorial">
+                    
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/HBV8Mn4lCyk?si=kYkTV6AbRGAX_cZd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                
+                </div>
+                <p id="description-tutorial">Cree Grupos de Clientes</p>
+
+                
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    
 <!-- Main content -->
 <section class="content">
     
@@ -41,7 +68,7 @@
                         </div>
                         <div class="col-sm-4">
                         <br>
-                            <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang('messages.submit')</button>
+                            <button type="submit" class="tw-dw-btn tw-dw-btn-warning tw-text-white">Importar</button>
                         </div>
                         </div>
                     </div>

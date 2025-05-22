@@ -15,13 +15,13 @@ use App\TaxRate;
 use App\Transaction;
 use App\TransactionSellLine;
 use App\TypesOfService;
-use App\Variation;
 use App\User;
 use App\Utils\BusinessUtil;
 use App\Utils\ContactUtil;
 use App\Utils\ModuleUtil;
 use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
+use App\Variation;
 use App\Warranty;
 use DB;
 use Illuminate\Http\Request;
@@ -99,8 +99,11 @@ class SellController extends Controller
 
             // only display sell invoice we add it because project invoive show in sell list
             if($sale_type == 'sell'){
-                $sells->whereNull('transactions.sub_type');
-            }
+                $sells->where(function ($query) {
+                    $query->where('transactions.sub_type', '!=', 'project_invoice')
+                          ->orWhereNull('transactions.sub_type');
+                });
+            }         
 
             $permitted_locations = auth()->user()->permitted_locations();
             if ($permitted_locations != 'all') {
@@ -187,7 +190,7 @@ class SellController extends Controller
                 }
             }
 
-            if (! empty(request()->input('rewards_only')) && request()->input('rewards_only') == true) {
+            if (!empty(request()->input('rewards_only')) && request()->input('rewards_only') == true) {
                 $sells->where(function ($q) {
                     $q->whereNotNull('transactions.rp_earned')
                     ->orWhere('transactions.rp_redeemed', '>', 0);
@@ -347,15 +350,58 @@ class SellController extends Controller
                 $sells->addSelect('transactions.is_recurring', 'transactions.recur_parent_id');
             }
             $sales_order_statuses = Transaction::sales_order_statuses();
+
+            // for zatca module Retrieve the 'is_zatca' parameter from the request; default to 0 if not provided and only comes 1 from zatca module
+            $is_zatca = !empty(request()->input('is_zatca')) ? request()->input('is_zatca') : 0;
+
+            if ($is_zatca) {
+                $sells->addSelect('transactions.zatca_status');
+
+                if (! empty(request()->input('zatca_status'))) {
+                    if (request()->input('zatca_status') == 'pending') {
+                        $sells->whereNull('transactions.zatca_status');
+                    } else {
+                        $sells->where('transactions.zatca_status', request()->input('zatca_status'));
+                    }
+                }
+            }
+
             $datatable = Datatables::of($sells)
                 ->addColumn(
                     'action',
-                    function ($row) use ($only_shipments, $is_admin, $sale_type) {
+                    function ($row) use ($only_shipments, $is_admin, $sale_type, $is_zatca) {
+
+                        // this action button for zatca module
+                        if ($is_zatca) {
+                            if ($row->zatca_status == 'success') {
+                                return '<div class="btn-group">
+                                <button type="button" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline tw-dw-btn-info tw-w-max dropdown-toggle"
+                                    data-toggle="dropdown" aria-expanded="false">' .
+                                    __('messages.actions') .
+                                    '<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                                    <li><a class="download-xml" href="'.action([\Modules\ZatcaIntegrationKsa\Http\Controllers\ZatcaInvoiceController::class, 'downloadXml'], [$row->id]).'">
+                                            <i class="fas fa-file-download"></i> '.__('zatcaintegrationksa::lang.download_xml').'
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="download-a3-pdf" target="_blank" href="'.action([\Modules\ZatcaIntegrationKsa\Http\Controllers\ZatcaInvoiceController::class, 'sale_print_pdf'], [$row->id]).'">
+                                            <i class="fas fa-file-download"></i> '.__('zatcaintegrationksa::lang.download_a3_pdf').'
+                                        </a>
+                                    </li>
+                                </ul></div>';
+                            }else {
+                                return '<a href="' . action([\Modules\ZatcaIntegrationKsa\Http\Controllers\ZatcaInvoiceController::class, 'sycs_sale'], [$row->id]) . '" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline tw-dw-btn-info tw-w-max sycs_sale">' . __('zatcaintegrationksa::lang.sync') . '</a>';
+                            }
+
+
+                        }
                         $html = '<div class="btn-group">
-                                    <button type="button" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline  tw-dw-btn-info tw-w-max dropdown-toggle" 
-                                        data-toggle="dropdown" aria-expanded="false">'.
-                                        __('messages.actions').
-                                        '<span class="caret"></span><span class="sr-only">Toggle Dropdown
+                                    <button type="button" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline  tw-dw-btn-info tw-w-max dropdown-toggle"
+                                        data-toggle="dropdown" aria-expanded="false">' .
+                        __('messages.actions') .
+                            '<span class="caret"></span><span class="sr-only">Toggle Dropdown
                                         </span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-left" role="menu">';
@@ -481,13 +527,13 @@ class SellController extends Controller
                 ->editColumn(
                     'discount_amount',
                     function ($row) {
-                        $discount = ! empty($row->discount_amount) ? $row->discount_amount : 0;
+                        $discount = !empty($row->discount_amount) ? $row->discount_amount : 0;
 
-                        if (! empty($discount) && $row->discount_type == 'percentage') {
+                        if (!empty($discount) && $row->discount_type == 'percentage') {
                             $discount = $row->total_before_tax * ($discount / 100);
                         }
 
-                        return '<span class="total-discount" data-orig-value="'.$discount.'">'.$this->transactionUtil->num_f($discount, true).'</span>';
+                        return '<span class="total-discount" data-orig-value="' . $discount . '">' . $this->transactionUtil->num_f($discount, true) . '</span>';
                     }
                 )
                 ->editColumn('transaction_date', '{{@format_datetime($transaction_date)}}')
@@ -505,15 +551,15 @@ class SellController extends Controller
                 )
                 ->addColumn('total_remaining', function ($row) {
                     $total_remaining = $row->final_total - $row->total_paid;
-                    $total_remaining_html = '<span class="payment_due" data-orig-value="'.$total_remaining.'">'.$this->transactionUtil->num_f($total_remaining, true).'</span>';
+                    $total_remaining_html = '<span class="payment_due" data-orig-value="' . $total_remaining . '">' . $this->transactionUtil->num_f($total_remaining, true) . '</span>';
 
                     return $total_remaining_html;
                 })
                 ->addColumn('return_due', function ($row) {
                     $return_due_html = '';
-                    if (! empty($row->return_exists)) {
+                    if (!empty($row->return_exists)) {
                         $return_due = $row->amount_return - $row->return_paid;
-                        $return_due_html .= '<a href="'.action([\App\Http\Controllers\TransactionPaymentController::class, 'show'], [$row->return_transaction_id]).'" class="view_purchase_return_payment_modal"><span class="sell_return_due" data-orig-value="'.$return_due.'">'.$this->transactionUtil->num_f($return_due, true).'</span></a>';
+                        $return_due_html .= '<a href="' . action([\App\Http\Controllers\TransactionPaymentController::class, 'show'], [$row->return_transaction_id]) . '" class="view_purchase_return_payment_modal"><span class="sell_return_due" data-orig-value="' . $return_due . '">' . $this->transactionUtil->num_f($return_due, true) . '</span></a>';
                     }
 
                     return $return_due_html;
@@ -585,6 +631,19 @@ class SellController extends Controller
 
                     return $status;
                 })
+                ->editColumn('zatca_status', function ($row) use ($is_zatca) {
+                    $status = '';
+                    if($is_zatca){
+                        if (empty($row->zatca_status) || is_null($row->zatca_status)) {
+                            $status = '<small class="label bg-primary tw-dw-btn-xs no-print">'.__('zatcaintegrationksa::lang.pending').'</small>';
+                        } elseif ($row->zatca_status == 'success') {
+                            $status = '<small class="label bg-light-green tw-dw-btn-xs no-print">' . ucfirst($row->zatca_status) . '</small>';
+                        } elseif ($row->zatca_status == 'failed') {
+                            $status = '<a href="' . action([\Modules\ZatcaIntegrationKsa\Http\Controllers\ZatcaInvoiceController::class, 'showInvoiceError'], ['id' => $row->id]) . '" class="label bg-red tw-dw-btn-xs no-print mb-2 status_fail">'. $row->zatca_status .'</a>';
+                        }
+                    }
+                    return $status;
+                })
                 ->editColumn('so_qty_remaining', '{{@format_quantity($so_qty_remaining)}}')
                 ->setRowAttr([
                     'data-href' => function ($row) {
@@ -595,7 +654,7 @@ class SellController extends Controller
                         }
                     }, ]);
 
-            $rawColumns = ['final_total', 'action', 'total_paid', 'total_remaining', 'payment_status', 'invoice_no', 'discount_amount', 'tax_amount', 'total_before_tax', 'shipping_status', 'types_of_service_name', 'payment_methods', 'return_due', 'conatct_name', 'status'];
+            $rawColumns = ['final_total', 'action', 'total_paid', 'total_remaining', 'payment_status', 'invoice_no', 'discount_amount', 'tax_amount', 'total_before_tax', 'shipping_status', 'types_of_service_name', 'payment_methods', 'return_due', 'conatct_name', 'status', 'zatca_status'];
 
             return $datatable->rawColumns($rawColumns)
                       ->make(true);
@@ -909,7 +968,7 @@ class SellController extends Controller
         //Check if return exist then not allowed
         if ($this->transactionUtil->isReturnExist($id)) {
             return back()->with('status', ['success' => 0,
-                'msg' => __('lang_v1.return_exist'), ]);
+                'msg' => __('lang_v1.return_exist')]);
         }
 
         $business_id = request()->session()->get('user.business_id');

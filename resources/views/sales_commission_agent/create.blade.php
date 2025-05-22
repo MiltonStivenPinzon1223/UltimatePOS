@@ -10,12 +10,7 @@
 
     <div class="modal-body">
       <div class="row">
-        <div class="col-md-2">
-        <div class="form-group">
-          {!! Form::label('surname', __( 'business.prefix' ) . ':') !!}
-            {!! Form::text('surname', null, ['class' => 'form-control', 'placeholder' => __( 'business.prefix_placeholder' ) ]); !!}
-        </div>
-      </div>
+        
       <div class="col-md-5">
         <div class="form-group">
           {!! Form::label('first_name', __( 'business.first_name' ) . ':*') !!}
@@ -59,7 +54,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang( 'messages.save' )</button>
+      <button type="submit" class="tw-dw-btn tw-dw-btn-warning tw-text-white">@lang( 'messages.save' )</button>
       <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
     </div>
 

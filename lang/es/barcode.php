@@ -1,7 +1,7 @@
 <?php
 
  return [
-     'barcodes' => 'Códigos de barras',
+     'barcodes' => 'Códigos de Barras',
      'barcode_settings' => 'Configuraciones de código de barras',
      'manage_your_barcodes' => 'Gestiona la configuración de tu código de barras',
      'all_your_barcode' => 'Toda la configuración de tu código de barras', /* modified */
@@ -20,11 +20,11 @@
      'left_margin' => 'Margen izquierdo adicional',
      'row_distance' => 'Distancia entre dos filas',
      'col_distance' => 'Distancia entre dos columnas',
-     'blank_stickers' => 'Pegatinas en blanco',
-     'stickers_in_one_row' => 'Pegatinas en una fila',
+     'blank_stickers' => 'Stikers en blanco',
+     'stickers_in_one_row' => 'Stikers en una fila',
      'delete_confirm' => "Esta configuración se eliminará \n ¿Estás seguro?",
      'set_as_default' => 'Establecer por defecto',
-     'default' => 'Defecto',
+     'default' => 'Preceterminado',
      'default_set_success' => 'Ajuste predeterminado establecido con éxito',
      'stickers_in_one_sheet' => 'Nº de pegatinas por hoja',
      'is_continuous' => 'Alimentación continua o rollos',
@@ -35,11 +35,11 @@
      'print_variations' => 'Variación del producto (recomendado)',
      'print_price' => 'Precio del producto',
      'show_price' => 'Mostrar precio',
-     'preview' => 'Avance',
+     'preview' => 'Vista Prelimiar',
      'print_business_name' => 'Nombre de la empresa', /* modified */
      'barcode_setting' => 'Ajuste del código de barras',
      'paper_width' => 'Ancho del papel',
      'paper_height' => 'Altura del papel',
-     'print_labels' => 'Imprimir etiquetas',
-     'labels' => 'Etiquetas',
+     'print_labels' => 'Imprimir Cod Barras',
+     'labels' => 'Codigos de Barra',
  ];

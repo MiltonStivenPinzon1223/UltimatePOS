@@ -36,8 +36,8 @@ $(document).ready(function() {
             },
         });
         form.find('a[href="#previous"]').addClass('tw-dw-btn');
-        form.find('a[href="#next"]').addClass('tw-dw-btn tw-dw-btn-primary');
-        form.find('a[href="#finish"]').addClass('tw-dw-btn tw-dw-btn-primary');
+        form.find('a[href="#next"]').addClass('tw-dw-btn tw-dw-btn-warning');
+        form.find('a[href="#finish"]').addClass('tw-dw-btn tw-dw-btn-warning');
     }
     // registration form steps end
 

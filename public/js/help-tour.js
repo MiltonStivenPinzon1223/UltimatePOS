@@ -3,7 +3,7 @@ $(document).ready(function() {
         name: 'tour',
         steps: [],
         template:
-            "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title text-bold'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-success btn-sm' data-role='prev'>« " +
+            "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title text-bold'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-warning btn-sm' data-role='prev'>« " +
             LANG.prev +
             "</button>&nbsp;<button class='btn btn-success btn-sm' data-role='next'>" +
             LANG.next +

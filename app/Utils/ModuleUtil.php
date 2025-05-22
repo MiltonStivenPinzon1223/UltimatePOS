@@ -53,7 +53,7 @@ class ModuleUtil extends Util
      * @param  string  $function_name
      * @return array
      */
-    public function getModuleData($function_name, $arguments = null)
+    public function getModuleData($function_name, $arguments = null, $get_data_from_modules = [])
     {
         $modules = Module::toCollection()->toArray();
 
@@ -62,6 +62,13 @@ class ModuleUtil extends Util
             if ($this->isModuleInstalled($details['name'])) {
                 $installed_modules[] = $details;
             }
+        }
+
+         // If specific module names are provided, filter the installed modules
+        if (!empty($get_data_from_modules) && is_array($get_data_from_modules)) {
+            $installed_modules = array_filter($installed_modules, function ($module) use ($get_data_from_modules) {
+                return in_array($module['name'], $get_data_from_modules);
+            });
         }
 
         $data = [];

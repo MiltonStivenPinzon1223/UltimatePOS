@@ -52,17 +52,17 @@ $(document).ready(function () {
         if ($(this).hasClass('toast-success')) {
             var audio = $('#success-audio')[0];
             if (audio !== undefined) {
-                audio.play();
+              //  audio.play();
             }
         } else if ($(this).hasClass('toast-error')) {
             var audio = $('#error-audio')[0];
             if (audio !== undefined) {
-                audio.play();
+              //  audio.play();
             }
         } else if ($(this).hasClass('toast-warning')) {
             var audio = $('#warning-audio')[0];
             if (audio !== undefined) {
-                audio.play();
+              //  audio.play();
             }
         }
     };
@@ -153,7 +153,7 @@ $(document).ready(function () {
         {
             extend: 'csv',
             text: '<i class="fa fa-file-csv" aria-hidden="true"></i> ' + LANG.export_to_csv,
-            className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-outline tw-my-2',
+            className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-warning tw-my-2',
             exportOptions: {
                 columns: ':visible',
             },
@@ -162,7 +162,7 @@ $(document).ready(function () {
         {
             extend: 'excel',
             text: '<i class="fa fa-file-excel" aria-hidden="true"></i> ' + LANG.export_to_excel,
-            className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-outline tw-my-2',
+            className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-success tw-my-2',
             exportOptions: {
                 columns: ':visible',
             },
@@ -171,7 +171,7 @@ $(document).ready(function () {
         {
             extend: 'print',
             text: '<i class="fa fa-print" aria-hidden="true"></i> ' + LANG.print,
-            className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-outline tw-my-2',
+            className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-info tw-my-2',
             exportOptions: {
                 columns: ':visible',
                 stripHtml: true,
@@ -199,7 +199,7 @@ $(document).ready(function () {
     var pdf_btn = {
         extend: 'pdf',
         text: '<i class="fa fa-file-pdf" aria-hidden="true"></i> ' + LANG.export_to_pdf,
-        className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-outline tw-my-2',
+        className: 'tw-dw-btn-xs  tw-dw-btn tw-dw-btn-secondary tw-my-2',
         exportOptions: {
             columns: ':visible',
         },
@@ -332,6 +332,8 @@ ranges[LANG.last_financial_year] = [
 ];
 
 var dateRangeSettings = {
+    showDropdowns : true,
+    linkedCalendars : false,
     ranges: ranges,
     startDate: financial_year.start,
     endDate: financial_year.end,
@@ -524,8 +526,11 @@ $(document).on('shown.bs.modal', '.contains_select2, .view_modal', function () {
 });
 
 //common configuration : tinyMCE editor
+
 tinymce.overrideDefaults({
     height: 300,
+    language: app_locale, // Set language dynamically
+    language_url: base_path + '/js/lang/tiny/' + app_locale + '.js', // Dynamic URL
     theme: 'silver',
     plugins: [
         'advlist autolink link image lists charmap print preview hr anchor pagebreak',

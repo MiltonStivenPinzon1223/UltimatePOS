@@ -14,25 +14,22 @@
           {!! Form::text('name', null, ['class' => 'form-control', 'required', 'placeholder' => __( 'brand.brand_name' ) ]); !!}
       </div>
 
-      <div class="form-group">
-        {!! Form::label('description', __( 'brand.short_description' ) . ':') !!}
-          {!! Form::text('description', null, ['class' => 'form-control','placeholder' => __( 'brand.short_description' )]); !!}
-      </div>
+     
 
         @if($is_repair_installed)
           <div class="form-group">
              <label>
                 {!!Form::checkbox('use_for_repair', 1, false, ['class' => 'input-icheck']) !!}
-                {{ __( 'repair::lang.use_for_repair' )}}
+                {{ __( 'Usar para Reparacion' )}}
             </label>
-            @show_tooltip(__('repair::lang.use_for_repair_help_text'))
+            @show_tooltip(__('Use esta marca para reparaciones'))
           </div>
         @endif
 
     </div>
 
     <div class="modal-footer">
-      <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang( 'messages.save' )</button>
+      <button type="submit" class="tw-dw-btn tw-dw-btn-warning tw-text-white">Crear Marca</button>
       <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
     </div>
 
