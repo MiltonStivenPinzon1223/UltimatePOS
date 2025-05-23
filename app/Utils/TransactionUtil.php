@@ -1356,7 +1356,7 @@ class TransactionUtil extends Util
         } elseif ($transaction_type == 'sell_return') {
             $parent_sell = Transaction::find($transaction->return_parent_id);
             $lines = $parent_sell->sell_lines;
-
+            $total_line_taxes = 0;
             foreach ($lines as $key => $value) {
                 if (! empty($value->sub_unit_id)) {
                     $formated_sell_line = $this->recalculateSellLineTotals($business_details->id, $value);
@@ -1378,6 +1378,8 @@ class TransactionUtil extends Util
                         $output['taxes'][$tax_group_detail['name']] += $tax_group_detail['calculated_tax'];
                     }
                 }
+
+                $total_line_taxes += ($line['tax_unformatted'] * $line['quantity']);
             }
         }
 
@@ -1588,7 +1590,10 @@ class TransactionUtil extends Util
 
             if ($zatca_qr) {
                 $total_order_tax = $transaction->tax_amount + $total_line_taxes;
-                $qr_code_text = $this->_zatca_qr_text($business_details->name, $business_details->tax_number_1, $transaction->transaction_date, $transaction->final_total, $total_order_tax);
+
+                $zatca_phase = ! empty($il->common_settings['zatca_phase']) ? $il->common_settings['zatca_phase'] : '';
+                $qr_code_text = $this->_zatca_qr_text($business_details->name, $business_details->tax_number_1, $transaction, $total_order_tax, $zatca_phase);
+                // $qr_code_text = $this->_zatca_qr_text( $transaction);
             } else {
                 $is_label_enabled = ! empty($il->common_settings['show_qr_code_label']) ? true : false;
                 $qr_code_details = [];
@@ -1635,6 +1640,20 @@ class TransactionUtil extends Util
 
                 $qr_code_text = $is_label_enabled ? implode(', ', $qr_code_details) : implode(' ', $qr_code_details);
             }
+
+            if ($transaction->status == 'final') {
+                $output['qr_code_text'] = $qr_code_text;
+            }
+        // add this seprate for sell retuen qr text of zatca
+        }else if(in_array($transaction_type, ['sell_return'])){
+
+            $output['show_qr_code'] = ! empty($il->show_qr_code) ? true : false;
+            $zatca_qr = ! empty($il->common_settings['zatca_qr']) ? true : false;
+            if ($zatca_qr) {
+                $total_order_tax = $transaction->tax_amount + $total_line_taxes;
+                $zatca_phase = ! empty($il->common_settings['zatca_phase']) ? $il->common_settings['zatca_phase'] : '';
+                $qr_code_text = $this->_zatca_qr_text($business_details->name, $business_details->tax_number_1, $transaction, $total_order_tax, $zatca_phase);
+            } 
 
             if ($transaction->status == 'final') {
                 $output['qr_code_text'] = $qr_code_text;
@@ -1922,26 +1941,35 @@ class TransactionUtil extends Util
      *
      * @return string
      */
-    protected function _zatca_qr_text($seller, $tax_number, $invoice_date, $invoice_total_amount, $invoice_tax_amount)
+    protected function _zatca_qr_text($business_details_name, $business_details_tax_number_1, $transaction, $total_order_tax, $zatca_phase)
     {
+        // there is 2 types of pass 1 and 2 if user not set any phase we use phase 1 default
+        if ($zatca_phase == 'phase_2') {
+            $moduleUtil = new ModuleUtil();
+            $qrtext = $moduleUtil->getModuleData('InvoiceQrCode', ['transaction' => $transaction], ['ZatcaIntegrationKsa']);
+            // Check if the key 'ZatcaIntegrationKsa' exists and has a value
+            if (!empty($qrtext) && isset($qrtext['ZatcaIntegrationKsa'])) {
+                return mb_convert_encoding($qrtext['ZatcaIntegrationKsa'], 'UTF-8', 'auto');
+            }
+            return '';
+        }
+
+        // if user not set any phase we use phase 1 default
         $string = '';
-
-        //$seller = 'Salla';
-        //$tax_number = '1234567891';
-        //$invoice_date = '2021-07-12T14:25:09Z';
-        //$invoice_total_amount = '100.00';
-        //$invoice_tax_amount = '15.00';
-
+        $seller = $business_details_name;
+        $tax_number = $business_details_tax_number_1;
+        $invoice_date = $transaction->transaction_date;
+        $invoice_total_amount = $transaction->final_total;
+        $invoice_tax_amount = $total_order_tax;
         $invoice_total_amount = round($invoice_total_amount, 2);
         //$invoice_date = \Carbon::parse($invoice_date)->toIso8601ZuluString();
         $invoice_date = \Carbon::parse($invoice_date)->toIso8601String();
 
-        $string .= $this->toHex(1).$this->toHex(strlen($seller)).($seller);
-        $string .= $this->toHex(2).$this->toHex(strlen($tax_number)).($tax_number);
-        $string .= $this->toHex(3).$this->toHex(strlen($invoice_date)).($invoice_date);
-        $string .= $this->toHex(4).$this->toHex(strlen($invoice_total_amount)).($invoice_total_amount);
-        $string .= $this->toHex(5).$this->toHex(strlen($invoice_tax_amount)).($invoice_tax_amount);
-
+        $string .= $this->toHex(1) . $this->toHex(strlen($seller)) . ($seller);
+        $string .= $this->toHex(2) . $this->toHex(strlen($tax_number)) . ($tax_number);
+        $string .= $this->toHex(3) . $this->toHex(strlen($invoice_date)) . ($invoice_date);
+        $string .= $this->toHex(4) . $this->toHex(strlen($invoice_total_amount)) . ($invoice_total_amount);
+        $string .= $this->toHex(5) . $this->toHex(strlen($invoice_tax_amount)) . ($invoice_tax_amount);
         return base64_encode($string);
     }
 
@@ -2026,6 +2054,10 @@ class TransactionUtil extends Util
                 'line_total_exc_tax' => $this->num_f($line->unit_price * $line->quantity, false, $business_details),
                 'line_total_exc_tax_uf' => $line->unit_price * $line->quantity,
                 'variation_id' => $variation->id,
+
+                // add for zatca pdf
+                'line_discount_amount_uf' => $line->line_discount_amount,
+                'line_discount_type_uf' => $line->line_discount_type,
             ];
 
             $temp = [];
@@ -2221,7 +2253,7 @@ class TransactionUtil extends Util
                 //Field for 2nd column
                 'quantity' => $this->num_f($line->quantity_returned, false, $business_details, true),
                 'units' => $unit_name,
-
+                'tax_unformatted' => $line->item_tax,
                 'unit_price' => $this->num_f($line->unit_price, false, $business_details),
                 'tax' => $this->num_f($line->item_tax, false, $business_details),
                 'tax_name' => ! empty($tax_details) ? $tax_details->name : null,
@@ -2232,6 +2264,17 @@ class TransactionUtil extends Util
 
                 //Fields for 4th column
                 'line_total' => $this->num_f($line->unit_price_inc_tax * $line->quantity_returned, false, $business_details),
+
+                // field for zatca pdf
+                'unit_price_before_discount_uf' => $line->unit_price_before_discount,
+                'line_total_uf' => $line->unit_price_inc_tax * $line->quantity_returned,
+
+                'tax_name' => ! empty($tax_details) ? $tax_details->name : null,
+                'tax_percent' => ! empty($tax_details) ? $tax_details->amount : null,
+                'quantity_uf' => $line->quantity_returned,
+                'unit_price_uf' => $line->unit_price,
+                 'line_discount_amount_uf' => $line->line_discount_amount,
+                 'line_discount_type_uf' => $line->line_discount_type,
             ];
             $line_array['line_discount'] = 0;
 
@@ -5118,7 +5161,6 @@ class TransactionUtil extends Util
                     DB::raw("SUM(IF(type = 'ledger_discount', final_total, 0)) as total_ledger_discount")
                 )->first();
 
-
         //Get payment totals before start date
         $prev_payments = $this->__paymentQuery($contact_id, $start, null, $location_id)
                             ->select('transaction_payments.*', 'bl.name as location_name', 't.type as transaction_type', 'is_advance')
@@ -5431,7 +5473,7 @@ class TransactionUtil extends Util
         $total_overall_paid_customer = $overall_total_invoice_paid - $overall_total_sell_return_paid + $overall_total_ob_paid; //Add '+ $overall_total_advance_payment'
 
         $total_overall_paid_supplier = $overall_total_purchase_paid - $overall_total_purchase_return_paid;
-        $overall_due = $total_overall_invoice + $total_overall_purchase - $total_overall_paid_customer - $total_overall_paid_supplier - $overall_ledger_discount;
+        $overall_due = $total_overall_invoice + $total_overall_purchase - $total_overall_paid_customer - $total_overall_paid_supplier;
 
         $output = [
             'ledger' => $ledger,
@@ -5505,7 +5547,11 @@ class TransactionUtil extends Util
         )
             ->leftJoin('business_locations as bl', 't.location_id', '=', 'bl.id')
             ->where('transaction_payments.payment_for', $contact_id)
-            ->whereNot('t.type', 'expense'); // use to not diaplay expense in payment list in ledger
+            // use to not diaplay expense in payment list in ledger
+            ->where(function ($query) {
+                $query->where('t.type', '!=', 'expense')
+                      ->orWhereNull('t.type');
+            }); 
         //->whereNull('transaction_payments.parent_id');
 
         if (! empty($start) && ! empty($end)) {
@@ -5720,29 +5766,9 @@ class TransactionUtil extends Util
         $sales_by_subtype = Transaction::where('business_id', $business_id)
             ->where('type', 'sell')
             ->where('status', 'final');
-        
         if (! empty($start_date) && ! empty($end_date)) {
             if ($start_date == $end_date) {
-                dd(222);
-                //======== HACER AQUI LA FUNCION DE TRAER SOLO LAS TRANSACCIONES QUE ESTAN RELACIONADAS EL ULTIMO CIERRE DE CAJA
-                $transacions_id = DB::table('cash_register_transactions as crt')
-                ->orderBy('crt.cash_register_id', 'desc')
-                ->limit(1)
-                ->get();
-
-                $sales_by_subtype
-                ->whereDate('transaction_date', $end_date);
-                // ->whereIn('transaction_id', $transacions_id);
-
-                $sales_by_subtype = $sales_by_subtype->select(DB::raw('SUM(total_before_tax) as total_before_tax'), 'sub_type')
-                ->whereNotNull('sub_type')
-                ->groupBy('transactions.sub_type')
-                ->get();
-                dd($sales_by_subtype);
-
-                $data['total_sell_by_subtype'] = $sales_by_subtype;
-                return $data;
-
+                $sales_by_subtype->whereDate('transaction_date', $end_date);
             } else {
                 $sales_by_subtype->whereBetween(DB::raw('transaction_date'), [$start_date, $end_date]);
             }
@@ -5752,7 +5778,7 @@ class TransactionUtil extends Util
             ->groupBy('transactions.sub_type')
             ->get();
         $data['total_sell_by_subtype'] = $sales_by_subtype;
-        dd($data);
+
         return $data;
     }
 
@@ -6452,5 +6478,20 @@ class TransactionUtil extends Util
         }
 
         return $registers;
+    }
+
+    public function get_sell_line_discount_amount($line_discount_type, $line_discount_amount, $unit_price_before_discount)
+    {
+        $discount_amount = 0;
+
+        if (!empty($line_discount_type) && !empty($line_discount_amount)) {
+            if ($line_discount_type === 'fixed') {
+                $discount_amount = $line_discount_amount;
+            } elseif ($line_discount_type === 'percentage') {
+                $discount_amount = ($unit_price_before_discount * $line_discount_amount) / 100;
+            }
+        }
+
+        return $discount_amount;
     }
 }

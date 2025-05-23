@@ -14,10 +14,7 @@
           {!! Form::text('name', $warranty->name, ['class' => 'form-control', 'required', 'placeholder' => __( 'lang_v1.name' ) ]); !!}
       </div>
 
-      <div class="form-group">
-        {!! Form::label('description', __( 'lang_v1.description' ) . ':') !!}
-          {!! Form::textarea('description', $warranty->description, ['class' => 'form-control', 'placeholder' => __( 'lang_v1.description' ), 'rows' => 3 ]); !!}
-      </div>
+    
       <strong>{!! Form::label('duration', __( 'lang_v1.duration' ) . ':') !!}*</strong>
       <div class="form-group">
           {!! Form::number('duration', $warranty->duration, ['class' => 'form-control width-40 pull-left', 'placeholder' => __( 'lang_v1.duration' ), 'required' ]); !!}
@@ -27,7 +24,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang( 'messages.update' )</button>
+      <button type="submit" class="tw-dw-btn tw-dw-btn-warning tw-text-white">Actualizar</button>
       <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
     </div>
 

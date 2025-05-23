@@ -324,9 +324,4 @@ class User extends Authenticatable
 
         return $img_src;
     }
-
-    public function loans()
-    {
-        return $this->hasMany(Loan::class, 'users_id', 'id');
-    }
 }

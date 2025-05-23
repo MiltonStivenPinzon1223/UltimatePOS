@@ -159,8 +159,8 @@
                                 {data: 'payment_details', name: 'tp.payment_ref_no'},
                                 {data: 'note', name: 'note'},
                                 {data: 'added_by', name: 'added_by'},
-                                {data: 'credit', name: 'amount', searchable: false},
-                                {data: 'debit', name: 'amount', searchable: false},
+                                {data: 'debit', name: 'debit', searchable: false},
+                                {data: 'credit', name: 'credit', searchable: false},
                                 {data: 'balance', name: 'balance', searchable: false},
                                 {data: 'action', name: 'action', searchable: false}
                             ],

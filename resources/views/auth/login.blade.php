@@ -27,6 +27,8 @@
             }
         }
     @endphp
+    
+    
     <div class="row">
         <div class="col-md-4">
         @if (config('app.env') == 'demo')
@@ -114,7 +116,7 @@
                             @lang('lang_v1.welcome_back')
                         </h1>
                         <h2 class="tw-text-sm tw-font-medium tw-text-gray-500">
-                            @lang('lang_v1.login_to_your') {{ config('app.name', 'ultimatePOS') }}
+                            @lang('lang_v1.login_to_your') 
                         </h2>
                     </div>
 
@@ -124,7 +126,7 @@
                             <label class="tw-dw-form-control">
                                 <div class="tw-dw-label">
                                     <span
-                                        class="tw-text-xs md:tw-text-sm tw-font-medium tw-text-black">@lang('Username')</span>
+                                        class="tw-text-xs md:tw-text-sm tw-font-medium tw-text-black">@lang('Usuario')</span>
                                 </div>
 
                                 <input
@@ -144,7 +146,7 @@
                             <label class="tw-dw-form-control">
                                 <div class="tw-dw-label">
                                     <span
-                                        class="tw-text-xs md:tw-text-sm tw-font-medium tw-text-black">@lang('Password')</span>
+                                        class="tw-text-xs md:tw-text-sm tw-font-medium tw-text-black">@lang('Contraseña')</span>
                                     @if (config('app.env') != 'demo')
                                         <a href="{{ route('password.request') }}"
                                             class="tw-text-xs md:tw-text-sm tw-font-medium tw-bg-gradient-to-r tw-from-indigo-500 tw-to-blue-500 tw-inline-block tw-text-transparent tw-bg-clip-text hover:tw-text-[#467BF5]"
@@ -194,8 +196,8 @@
                         </div>
                         @endif
                         <button type="submit"
-                            class="tw-bg-gradient-to-r tw-from-indigo-500 tw-to-blue-500 tw-h-12 tw-rounded-xl tw-text-sm md:tw-text-base tw-text-white tw-font-semibold tw-w-full tw-max-w-full mt-2 hover:tw-from-indigo-600 hover:tw-to-blue-600 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-offset-2 active:tw-from-indigo-700 active:tw-to-blue-700">
-                            @lang('lang_v1.login')
+                            class="tw-bg-gradient-to-r tw-from-indigo-500 tw-to-purple-500 tw-h-12 tw-rounded-xl tw-text-sm md:tw-text-base tw-text-white tw-font-semibold tw-w-full tw-max-w-full mt-2 hover:tw-from-indigo-600 hover:tw-to-purple-600 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-purple-500 focus:tw-ring-offset-2 active:tw-from-indigo-700 active:tw-to-purple-700">
+                            Ingresar
                         </button>
                     </form>
 

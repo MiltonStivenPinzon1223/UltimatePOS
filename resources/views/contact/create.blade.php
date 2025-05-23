@@ -351,6 +351,50 @@
                 </div>
             </div>
           </div>
+          <div class="col-md-3">
+            <div class="form-group">
+                {!! Form::label('land_mark', __('business.land_mark') . ':') !!}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </span>
+                    {!! Form::text('land_mark', null, ['class' => 'form-control', 'placeholder' => __('business.land_mark')]); !!}
+                </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+                {!! Form::label('street_name', __('business.street_name') . ':') !!}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </span>
+                    {!! Form::text('street_name', null, ['class' => 'form-control', 'placeholder' => __('business.street_name')]); !!}
+                </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+                {!! Form::label('building_number', __('business.building_number') . ':') !!}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </span>
+                    {!! Form::text('building_number', null, ['class' => 'form-control', 'placeholder' => __('business.building_number')]); !!}
+                </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+                {!! Form::label('additional_number', __('business.additional_number') . ':') !!}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-map-marker"></i>
+                    </span>
+                    {!! Form::text('additional_number', null, ['class' => 'form-control', 'placeholder' => __('business.additional_number')]); !!}
+                </div>
+            </div>
+          </div>
 
           <div class="clearfix"></div>
           <div class="col-md-12">
@@ -543,7 +587,7 @@
     </div>
     
     <div class="modal-footer">
-      <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang( 'messages.save' )</button>
+      <button type="submit" class="tw-dw-btn tw-dw-btn-warning tw-text-white">@lang( 'messages.save' )</button>
       <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
     </div>
 

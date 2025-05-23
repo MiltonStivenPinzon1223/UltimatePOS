@@ -8,7 +8,36 @@
 @endphp
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('purchase.add_purchase') <i class="fa fa-keyboard-o hover-q text-muted" aria-hidden="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@include('purchase.partials.keyboard_shortcuts_details')" data-html="true" data-trigger="hover" data-original-title="" title=""></i></h1>
+    <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('purchase.add_purchase') <i class="fa fa-keyboard-o hover-q text-muted" aria-hidden="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@include('purchase.partials.keyboard_shortcuts_details')" data-html="true" data-trigger="hover" data-original-title="" title=""></i>
+    
+      <button style='font-size:36px;color:red'><i class='fab fa-youtube id='modal-video-tutorial' data-toggle="modal" data-target="#stack"></i></button>
+					
+
+	    </h4>
+       
+       
+    <div data-width="500" tabindex="-1" class="modal fade" id="stack" style="display: none;">
+     <div class="modal-dialog">
+        <div class="modal-content" style="padding-bottom: 40px">
+               <div class="modal-header">
+                  <button type="button" id='close-modal' class="close" data-dismiss="modal" rel=0;aria-hidden="true"></button>
+                <div id="title-tutorial">
+                Modulo Crear Compras           
+                </div>
+        </div>
+            <div class="modal-body">
+                <div id="video-tutorial">
+                    
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/HBV8Mn4lCyk?si=kYkTV6AbRGAX_cZd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                
+                </div>
+                <p id="description-tutorial">Realice compras a sus prpveedores y administrelas</p>
+
+                
+            </div>
+        </div>
+      </div>
+    
+    </h1>
 </section>
 
 <!-- Main content -->
@@ -23,7 +52,7 @@
 	@include('layouts.partials.error')
 
 	{!! Form::open(['url' => action([\App\Http\Controllers\PurchaseController::class, 'store']), 'method' => 'post', 'id' => 'add_purchase_form', 'files' => true ]) !!}
-	@component('components.widget', ['class' => 'box-primary'])
+	@component('components.widget', ['class' => 'box-info'])
 		<div class="row">
 			<div class="@if(!empty($default_purchase_status)) col-sm-4 @else col-sm-3 @endif">
 				<div class="form-group">
@@ -34,7 +63,7 @@
 						</span>
 						{!! Form::select('contact_id', [], null, ['class' => 'form-control', 'placeholder' => __('messages.please_select'), 'required', 'id' => 'supplier_id']); !!}
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-default bg-white btn-flat add_new_supplier" data-name=""><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
+							<button type="button" class="btn btn-default bg-white btn-flat add_new_supplier" data-name=""><i class="fa fa-plus-circle text-warning fa-lg"></i></button>
 						</span>
 					</div>
 				</div>
@@ -220,10 +249,10 @@
 		@endif
 	@endcomponent
 
-	@component('components.widget', ['class' => 'box-primary'])
+	@component('components.widget', ['class' => 'box-info'])
 		<div class="row">
 			<div class="col-sm-2 text-center">
-				<button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white tw-dw-btn-sm" data-toggle="modal" data-target="#import_purchase_products_modal">@lang('product.import_products')</button>
+				<button type="button" class="tw-dw-btn tw-dw-btn-warning tw-text-white tw-dw-btn-sm" data-toggle="modal" data-target="#import_purchase_products_modal">@lang('product.import_products')</button>
 			</div>
 			<div class="col-sm-8">
 				<div class="form-group">
@@ -258,6 +287,7 @@
 								<th>@lang( 'product.product_name' )</th>
 								<th>@lang( 'purchase.purchase_quantity' )</th>
 								<th>@lang( 'lang_v1.unit_cost_before_discount' )</th>
+								
 								<th>@lang( 'lang_v1.discount_percent' )</th>
 								<th>@lang( 'purchase.unit_cost_before_tax' )</th>
 								<th class="{{$hide_tax}}">@lang( 'purchase.subtotal_before_tax' )</th>
@@ -281,7 +311,7 @@
 										@lang('product.mfg_date') / @lang('product.exp_date')
 									</th>
 								@endif
-								<th><i class="fa fa-trash" aria-hidden="true"></i></th>
+								<th><i class="fa fa-trash" style=color:red aria-hidden="true"></i></th>
 							</tr>
 						</thead>
 						<tbody></tbody>
@@ -319,7 +349,7 @@
 		</div>
 	@endcomponent
 
-	@component('components.widget', ['class' => 'box-primary'])
+	@component('components.widget', ['class' => 'box-info'])
 		<div class="row">
 			<div class="col-sm-12">
 			<table class="table">
@@ -376,8 +406,16 @@
 			</table>
 			</div>
 		</div>
+		
+		<div class="row">
+				<div class="col-sm-12 text-center">
+					<button type="button" id="submit_purchase_form" class="tw-dw-btn tw-dw-btn-success tw-dw-btn-lg tw-text-black">@lang('messages.save')</button>
+				</div>
+			</div>
+			
+			
 	@endcomponent
-	@component('components.widget', ['class' => 'box-primary'])
+	@component('components.widget', ['class' => 'box-info'])
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group">
@@ -493,7 +531,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<button type="button" class="tw-dw-btn tw-dw-btn-primary tw-text-white tw-dw-btn-sm" id="toggle_additional_expense"> <i class="fas fa-plus"></i> @lang('lang_v1.add_additional_expenses') <i class="fas fa-chevron-down"></i></button>
+				<button type="button" class="tw-dw-btn tw-dw-btn-warning tw-text-white tw-dw-btn-sm" id="toggle_additional_expense"> <i class="fas fa-plus"></i> @lang('lang_v1.add_additional_expenses') <i class="fas fa-chevron-down"></i></button>
 			</div>
 			<div class="col-md-8 col-md-offset-4" id="additional_expenses_div" style="display: none;">
 				<table class="table table-condensed">
@@ -547,7 +585,7 @@
 			</div>
 		</div>
 	@endcomponent
-	@component('components.widget', ['class' => 'box-primary', 'title' => __('purchase.add_payment')])
+	@component('components.widget', ['class' => 'box-info', 'title' => __('purchase.add_payment')])
 		<div class="box-body payment_row">
 			<div class="row">
 				<div class="col-md-12">
@@ -565,7 +603,7 @@
 			<br>
 			<div class="row">
 				<div class="col-sm-12 text-center">
-					<button type="button" id="submit_purchase_form" class="tw-dw-btn tw-dw-btn-primary tw-dw-btn-lg tw-text-white">@lang('messages.save')</button>
+					<button type="button" id="submit_purchase_form" class="tw-dw-btn tw-dw-btn-warning tw-dw-btn-lg tw-text-black">@lang('messages.save')</button>
 				</div>
 			</div>
 		</div>

@@ -6,8 +6,78 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('sale.products')
-            <small class="tw-text-sm md:tw-text-base tw-text-gray-700 tw-font-semibold">@lang('lang_v1.manage_products')</small>
+           
+       &nbsp;<button style='font-size:30px;color:red'><i class='fab fa-youtube id='modal-video-tutorial' data-toggle="modal" data-target="#stack"></i></button>
+					
+
+	    </h4>
+       
+       
+        <div class="tw-grid tw-grid-cols-1 tw-gap-4 tw-mt-6 sm:tw-grid-cols-2 xl:tw-grid-cols-4 sm:tw-gap-5">
+                            
+                                <div
+                                     class="tw-transition-all tw-duration-200 tw-bg-white tw-shadow-sm hover:tw-shadow-md tw-rounded-xl hover:tw--translate-y-0.5 tw-ring-1 tw-ring-gray-200">
+                                    <div class="tw-p-4 sm:tw-p-5">
+                                        <div class="tw-flex tw-items-center tw-gap-4">
+                                            <div
+                                                class="tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-text-green-500 tw-bg-green-100 tw-rounded-full sm:tw-w-12 sm:tw-h-12 tw-shrink-0">
+                                                <svg aria-hidden="true" class="tw-w-6 tw-h-6" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path
+                                                        d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2">
+                                                    </path>
+                                                    <path
+                                                        d="M14.8 8a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1">
+                                                    </path>
+                                                    <path d="M12 6v10"></path>
+                                                </svg>
+                                            </div>
+
+                                            <div class="tw-flex-1 tw-min-w-0">
+                                                <p
+                                                class="tw-text-sm tw-font-medium tw-text-gray-500 tw-truncate tw-whitespace-nowrap">
+                                                {{ __('lang_v1.my_inventary') }}
+                                                
+                                            </p>
+                                                
+                                                <span class="display_currency" data-currency_symbol="true">{{$data['inventory']}}</span>
+                                                
+                                                
+                                                <p
+                                                    class="total_sell tw-mt-0.5 tw-text-gray-900 tw-text-xl tw-truncate tw-font-semibold tw-tracking-tight tw-font-mono">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+       
+       
+    <div data-width="500" tabindex="-1" class="modal fade" id="stack" style="display: none;">
+     <div class="modal-dialog">
+        <div class="modal-content" style="padding-bottom: 40px">
+               <div class="modal-header">
+                  <button type="button" id='close-modal' class="close" data-dismiss="modal" rel=0;aria-hidden="true"></button>
+                <div id="title-tutorial">
+                Modulo Productos              
+                </div>
+        </div>
+            <div class="modal-body">
+                <div id="video-tutorial">
+                    
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/HBV8Mn4lCyk?si=kYkTV6AbRGAX_cZd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                
+                </div>
+                <p id="description-tutorial">Aministre, Cree y Edite sus Productos</p>
+
+                
+            </div>
+        </div>
+      </div>
+    </div>
         </h1>
+
         <!-- <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                     <li class="active">Here</li>
@@ -160,10 +230,10 @@
                             <div class="tab-pane active " id="product_list_tab">
                                 @if ($is_admin)
 
-                                    <a class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right tw-m-2"
+                                   <a class="tw-dw-btn tw-bg--to-r tw-from-indigo-600 tw-to-red-500 tw-font-bold tw-text-red tw-border-none tw-full pull-right tw-m-2"
                                         href="{{ action([\App\Http\Controllers\ProductController::class, 'downloadExcel']) }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
                                             class="icon icon-tabler icons-tabler-outline icon-tabler-download">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -175,15 +245,15 @@
                                 @endif
                                 @can('product.create')
 
-                                    <a class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right tw-m-2"
+                                    <a class="tw-dw-btn tw-bg--to-r tw-from-600 tw-to-blue-500 tw-font-bold tw-text-black tw-border-none tw-full pull-right tw-m-2"
                                         href="{{ action([\App\Http\Controllers\ProductController::class, 'create']) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                                        viewBox="0 0 20 20" fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M12 5l0 14" />
                                             <path d="M5 12l14 0" />
-                                        </svg> @lang('messages.add')
+                                        </svg> @lang('Crear Producto')
                                     </a>
                                     <br><br>
                                 @endcan

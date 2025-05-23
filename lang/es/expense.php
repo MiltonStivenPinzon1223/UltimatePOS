@@ -2,24 +2,29 @@
 
  return [
      'expenses' => 'Gastos',
-     'expense_categories' => 'Categorías de gastos',
-     'manage_your_expense_categories' => 'Gestiona tus categorías de gastos',
-     'all_your_expense_categories' => 'Todas tus categorías de gastos', /* modified */
-     'expense_category' => 'Categoría de gastos',
+     'expense_categories' => 'Tipos de Gastos',
+     'manage_your_expense_categories' => 'Gestiona tus tipos de gastos',
+     'all_your_expense_categories' => 'Todas tus tiposs de gastos', /* modified */
+     'expense_category' => 'Tipo de Gastos',
      'category_name' => 'Nombre de la categoría',
-     'category_code' => 'Código de categoría',
-     'added_success' => 'Categoría de gastos añadida con éxito',
-     'updated_success' => 'Categoría de gastos actualizada con éxito',
-     'deleted_success' => 'Categoría de gastos eliminada con éxito',
-     'add_expense_category' => 'Agregar categoría de gastos',
-     'edit_expense_category' => 'Editar categoría de gastos',
-     'all_expenses' => 'Todos los gastos',
-     'expense_status' => 'Estado del gasto',
-     'add_expense' => 'Agregar gasto',
-     'edit_expense' => 'Editar gasto',
-     'expense_note' => 'Nota de gastos',
-     'expense_add_success' => 'Gasto añadido con éxito', /* modified */
-     'expense_update_success' => 'Gastos actualizados con éxito',
-     'expense_delete_success' => 'Gastos eliminados con éxito',
+     'category_code' => 'Código',
+     'added_success' => 'Tipo de gastos creada correctamente',
+     'updated_success' => 'Tipo de gastos actualizada correctamente',
+     'deleted_success' => 'Tipo de gastos eliminada correctamente',
+     'add_expense_category' => 'Agregar Tipo de gastos',
+     'edit_expense_category' => 'Editar Tipo de gastos',
+     'all_expenses' => 'Todos los Gastos',
+     'expense_status' => 'Estado del Gasto',
+     'add_expense' => 'Agregar Gasto',
+     'edit_expense' => 'Editar Gasto',
+     'expense_note' => 'Nota de Gastos',
+     'expense_add_success' => 'Gasto añadido correctamente', /* modified */
+     'expense_update_success' => 'Gastos actualizados correctamente',
+     'expense_delete_success' => 'Gastos eliminados correctamente',
+     'import_expense' => 'Importar Gastos',
      'expense_for' => 'Gasto por',
+     'date_format_instruction' => 'El formato de fecha y hora de gastos debe ser "Y-m-d H:i:s" (2020-07-15 17:45:32)',
+     'expense_for_help' => 'Creador del Gasto',
+     'import_expense' => 'Importar Gastos',
+
  ];

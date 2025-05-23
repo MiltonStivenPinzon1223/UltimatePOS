@@ -976,10 +976,22 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                {!! Form::checkbox('common_settings[zatca_qr]', 1, !empty($invoice_layout->common_settings['zatca_qr']), ['class' => 'input-icheck']); !!} @lang('lang_v1.zatca_qr')</label>
+                {!! Form::checkbox('common_settings[zatca_qr]', 1, !empty($invoice_layout->common_settings['zatca_qr']), ['class' => 'input-icheck', 'id' => 'zatca_qr']); !!} @lang('lang_v1.zatca_qr')</label>
                 @show_tooltip(__('lang_v1.zatca_qr_help'))
             </div>
         </div>
+    </div>
+    <div class="col-sm-4" id="zatca_phase_container" style="display: none;">
+      <div class="form-group">
+        {!! Form::label('zatca_phase', __('lang_v1.zatca_phase') . ':*') !!}
+          {!! Form::select('common_settings[zatca_phase]', [
+            'phase_1' => __('lang_v1.zatca_phase1'),
+            'phase_2' => __('lang_v1.zatca_phase2'),
+          ],$invoice_layout->common_settings['zatca_phase'] ?? null , ['class' => 'form-control', 'id' => 'zatca_phase']); !!}
+            <small id="phase2_message" style="display: none; color: green; font-size: 12px;">
+              {{ __('lang_v1.phase2_message') }}
+          </small>
+      </div>
     </div>
     <div class="clearfix"></div>
     <div class="col-md-12">
@@ -1153,5 +1165,36 @@
     $(document).ready(function(){
         letter_head_changed();
     })
+</script>
+<script>
+  $(document).ready(function () {
+      function toggleZatcaPhase() {
+          if ($('#zatca_qr').is(':checked')) {
+              $('#zatca_phase_container').fadeIn();
+          } else {
+              $('#zatca_phase_container').fadeOut();
+          }
+      }
+
+      function checkPhaseSelection(){
+        if ($('#zatca_phase').val() === 'phase_2') {
+            $('#phase2_message').fadeIn();
+        } else {
+            $('#phase2_message').fadeOut();
+        }
+      }
+      // Initial check on page load
+      toggleZatcaPhase();
+      checkPhaseSelection();
+
+      $('#zatca_qr').on('ifChanged', function(event){
+        //Check if checkbox is checked or not
+        toggleZatcaPhase()
+      });
+
+      $('#zatca_phase').on('change', function () {
+        checkPhaseSelection();
+      });
+  });
 </script>
 @endsection

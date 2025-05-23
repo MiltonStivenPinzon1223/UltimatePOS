@@ -52,38 +52,6 @@ class TransactionPaymentController extends Controller
         //
     }
 
-    public function add_payment(Request $request)
-    {
-        $transaction = Transaction::where('contact_id', $request->contact_id)
-        ->where('type', 'sell')
-        ->latest('id')
-        ->first();
-        $transactionDetails = TransactionPayment::where('payment_for', $request->contact_id)
-        ->latest('id')
-        ->first();
-
-        $Newtransaction = $transaction->replicate();
-        $NewTransactionDetails = $transactionDetails->replicate();
-        $prefix_type = 'purchase_payment';
-        $ref_count = $this->transactionUtil->setAndGetReferenceCount($prefix_type);
-        $payment_ref_no = $this->transactionUtil->generateReferenceNumber($prefix_type, $ref_count);
-
-
-        $Newtransaction->total_before_tax = $request->amount;
-        $Newtransaction->transaction_date = $request->date;
-        $NewTransactionDetails->note = $request->note;
-        $NewTransactionDetails->payment_ref_no = $payment_ref_no;
-        $Newtransaction->save();
-        $NewTransactionDetails->transaction_id= $Newtransaction->id;
-        $NewTransactionDetails->amount= $request->amount;
-        $NewTransactionDetails->paid_on= $request->date;
-        $NewTransactionDetails->save();
-        $output = ['success' => true,
-                'msg' => __('purchase.payment_added_success'),
-            ];
-        return redirect()->back()->with(['status' => $output]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *

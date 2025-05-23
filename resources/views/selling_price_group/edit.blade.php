@@ -14,14 +14,10 @@
           {!! Form::text('name', $spg->name, ['class' => 'form-control', 'required', 'placeholder' => __( 'lang_v1.name' ) ]); !!}
       </div>
 
-      <div class="form-group">
-        {!! Form::label('description', __( 'lang_v1.description' ) . ':') !!}
-          {!! Form::textarea('description', $spg->description, ['class' => 'form-control','placeholder' => __( 'lang_v1.description' ), 'rows' => 3]); !!}
-      </div>
-    </div>
+     
 
     <div class="modal-footer">
-      <button type="submit" class="tw-dw-btn tw-dw-btn-primary tw-text-white">@lang( 'messages.update' )</button>
+      <button type="submit" class="tw-dw-btn tw-dw-btn-warning tw-text-white">Actualizar</button>
       <button type="button" class="tw-dw-btn tw-dw-btn-neutral tw-text-white" data-dismiss="modal">@lang( 'messages.close' )</button>
     </div>
 

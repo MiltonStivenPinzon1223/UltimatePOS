@@ -5,11 +5,11 @@
      'manage_your_brands' => 'Gestiona tus marcas',
      'all_your_brands' => 'Todas tus marcas', /* modified */
      'note' => 'Nota',
-     'brand_name' => 'Nombre de la marca',
+     'brand_name' => 'Nombre de la Marca',
      'short_description' => 'Breve descripción',
      'added_success' => 'Marca añadida con éxito',
      'updated_success' => 'Marca actualizada con éxito',
      'deleted_success' => 'Marca eliminada con éxito',
-     'add_brand' => 'Agregar marca',
-     'edit_brand' => 'Editar marca',
+     'add_brand' => 'Agregar Marca',
+     'edit_brand' => 'Editar Marca',
  ];

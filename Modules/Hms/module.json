@@ -1,0 +1,11 @@
+{
+    "name": "Hms",
+    "alias": "Hoteles",
+    "description": "Módulo del sistema de gestión hotelera para Zisco, que ofrece funciones para reservas de habitaciones, extras, cupones y funciones relacionadas.",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Hms\\Providers\\HmsServiceProvider"
+    ],
+    "files": []
+}

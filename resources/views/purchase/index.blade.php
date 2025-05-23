@@ -6,7 +6,111 @@
     <!-- Content Header (Page header) -->
     <section class="content-header no-print">
         <h1 class="tw-text-xl md:tw-text-3xl tw-font-bold tw-text-black">@lang('purchase.purchases')
-            <small></small>
+             &nbsp; <button style='font-size:36px;color:red'><i class='fab fa-youtube id='modal-video-tutorial' data-toggle="modal" data-target="#stack"></i></button>
+             
+             </h4>
+			
+			
+			     <div class="tw-grid tw-grid-cols-1 tw-gap-4 tw-mt-6 sm:tw-grid-cols-2 xl:tw-grid-cols-4 sm:tw-gap-5">
+                            
+                                <div
+                                    class="tw-transition-all tw-duration-200 tw-bg-white tw-shadow-sm hover:tw-shadow-md tw-rounded-xl hover:tw-translate-y-0.5 tw-ring-1 tw-ring-gray-200">
+                                    <div class="tw-p-4 sm:tw-p-5">
+                                        <div class="tw-flex tw-items-center tw-gap-4">
+                                            <div
+                                                class="tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full sm:tw-w-12 sm:tw-h-12 tw-shrink-0 tw-bg-sky-100 tw-text-sky-500">
+                                                <svg aria-hidden="true" class="tw-w-6 tw-h-6" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                                    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                                    <path d="M17 17h-11v-14h-2" />
+                                                    <path d="M6 5l14 1l-1 7h-13" />
+                                                </svg>
+                                            </div>
+
+                                            <div class="tw-flex-1 tw-min-w-0">
+                                                <p
+                                                class="tw-text-sm tw-font-medium tw-text-gray-500 tw-truncate tw-whitespace-nowrap">
+                                                {{ __('home.total_purchase') }}
+                                            </p>
+                                            
+                                            <span class="display_currency" data-currency_symbol="true">{{$data['total_purchase']}}</span>
+                                                <p
+                                                    class="total_sell tw-mt-0.5 tw-text-gray-900 tw-text-xl tw-truncate tw-font-semibold tw-tracking-tight tw-font-mono">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+				
+				
+				<div
+                                class="tw-transition-all tw-duration-200 tw-bg-white tw-shadow-sm tw-rounded-xl hover:tw-shadow-md hover:tw--translate-y-0.5 tw-ring-1 tw-ring-gray-200">
+                                <div class="tw-p-4 sm:tw-p-5">
+                                    <div class="tw-flex tw-items-center tw-gap-4">
+                                        <div
+                                            class="tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-text-yellow-500 tw-bg-yellow-100 tw-rounded-full sm:tw-w-12 sm:tw-h-12 shrink-0">
+                                            <svg aria-hidden="true" class="tw-w-6 tw-h-6"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M12 9v4" />
+                                                <path
+                                                    d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+                                                <path d="M12 16h.01" />
+                                            </svg>
+                                        </div>
+
+                                        <div>
+                                            <p class="tw-text-sm tw-font-medium tw-text-gray-500">
+                                                {{ __('home.purchase_due') }}
+                                            </p>
+                                            
+                                            <span class="display_currency" data-currency_symbol="true">{{$data['purchase_due']}}</span>
+                                            
+                                            <p
+                                                class="purchase_due tw-mt-0.5 tw-text-gray-900 tw-text-xl tw-truncate tw-font-semibold tw-tracking-tight tw-font-mono">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+				
+			
+			
+			
+					
+
+	    
+       
+       
+    <div data-width="500" tabindex="-1" class="modal fade" id="stack" style="display: none;">
+     <div class="modal-dialog">
+        <div class="modal-content" style="padding-bottom: 40px">
+               <div class="modal-header">
+                  <button type="button" id='close-modal' class="close" data-dismiss="modal" rel=0;aria-hidden="true"></button>
+                <div id="title-tutorial">
+                Modulo Compras           
+                </div>
+        </div>
+            <div class="modal-body">
+                <div id="video-tutorial">
+                    
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/HBV8Mn4lCyk?si=kYkTV6AbRGAX_cZd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                
+                </div>
+                <p id="description-tutorial">Administre su compras, editelas y realice pagos</p>
+
+                
+            </div>
+        </div>
+      </div>
+      
+      <small></small>
         </h1>
         <!-- <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -81,15 +185,15 @@
                     <div class="box-tools">
                         {{-- <a class="btn btn-block btn-primary" href="{{action([\App\Http\Controllers\PurchaseController::class, 'create'])}}">
                     <i class="fa fa-plus"></i> @lang('messages.add')</a> --}}
-                        <a class="tw-dw-btn tw-bg-gradient-to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-white tw-border-none tw-rounded-full pull-right"
+                        <a class="tw-dw-btn tw-bg--to-r tw-from-indigo-600 tw-to-blue-500 tw-font-bold tw-text-black tw-border-none tw-rounded-full pull-right"
                             href="{{action([\App\Http\Controllers\PurchaseController::class, 'create'])}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 5l0 14" />
-                                <path d="M5 12l14 0" />
-                            </svg> @lang('messages.add')
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                                        viewBox="0 0 20 20" fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M12 5l0 14" />
+                                            <path d="M5 12l14 0" />
+                                        </svg> @lang('Crear Compra')
                         </a>
                     </div>
                 @endslot

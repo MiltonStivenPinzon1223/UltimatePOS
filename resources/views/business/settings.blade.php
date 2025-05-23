@@ -27,6 +27,7 @@
                     <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('contact.contact')</a>
                     <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('business.sale')</a>
                     <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('sale.pos_sale')</a>
+                    <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('lang_v1.display_screen')</a>
                     <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('purchase.purchases')</a>
                     <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('lang_v1.payment')</a>
                     <a href="#" class="list-group-item text-center tw-font-bold tw-text-sm md:tw-text-base">@lang('business.dashboard')</a>
@@ -54,6 +55,7 @@
                 <!-- tab 4 start -->
                 @include('business.partials.settings_sales')
                 @include('business.partials.settings_pos')
+                @include('business.partials.settings_display_pos')
                 <!-- tab 4 end -->
                 <!-- tab 5 start -->
                 @include('business.partials.settings_purchase')
@@ -91,7 +93,7 @@
 
     <div class="row">
         <div class="col-sm-12 text-center">
-            <button class="tw-dw-btn tw-dw-btn-error tw-dw-btn-lg tw-text-white" type="submit">@lang('business.update_settings')</button>
+            <button class="tw-dw-btn tw-dw-btn-warning tw-dw-btn-lg tw-text-white" type="submit">Actualizar Ajustes</button>
         </div>
     </div>
 {!! Form::close() !!}
@@ -215,6 +217,18 @@
                 textarea.addClass('hide');
             }
         })
+
+        tinymce.init({
+            selector: 'textarea#display_screen_heading',
+            height: 250
+        });
+
+        $('.carousel_image').fileinput({
+            showUpload: true,
+            showPreview: true,
+            browseLabel: LANG.file_browse_label,
+            removeLabel: LANG.remove,
+        });
     });
 </script>
 @endsection

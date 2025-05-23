@@ -53,7 +53,7 @@ class LoanPaymentController extends Controller
     public function sum($contact_id)
     {
         $loanPayment = DB::table('loans')
-        ->where('contacts_id', 6)
+        ->where('contacts_id', $contact_id)
         ->orderBy('created_at', 'desc')
         ->limit(1)
         ->value('balance');
