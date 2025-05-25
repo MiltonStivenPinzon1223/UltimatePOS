@@ -5,7 +5,8 @@
 				<span class="input-group-addon">
 					<i class="fa fa-user"></i>
 				</span>
-				<input type="hidden" id="default_customer_id" 
+		
+			{{--	<input type="hidden" id="default_customer_id" 
 				value="{{ $walk_in_customer['id'] ?? ''}}" >
 				<input type="hidden" id="default_customer_name" 
 				value="{{ $walk_in_customer['name'] ?? ''}}" >
@@ -22,6 +23,8 @@
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default bg-white btn-flat add_new_customer" data-name=""  @if(!auth()->user()->can('customer.create')) disabled @endif><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
 				</span>
+			--}}
+
 			</div>
 			<small class="text-danger hide contact_due_text"><strong>@lang('account.customer_due'):</strong> <span></span></small>
 		</div>
@@ -75,6 +78,7 @@
 			</div>
 		</div>
 	@endif
+	{{--
 	@if(!empty($pos_settings['enable_transaction_date']))
 		<div class="col-md-4 col-sm-6">
 			<div class="form-group">
@@ -87,6 +91,7 @@
 			</div>
 		</div>
 	@endif
+	
 	@if(config('constants.enable_sell_in_diff_currency') == true)
 		<div class="col-md-4 col-sm-6">
 			<div class="form-group">
@@ -124,6 +129,7 @@
 		@endphp
 		{!! Form::hidden('price_group', key($price_groups), ['id' => 'price_group']) !!}
 	@endif
+	--}}
 	@if(!empty($default_price_group_id))
 		{!! Form::hidden('default_price_group', $default_price_group_id, ['id' => 'default_price_group']) !!}
 	@endif
@@ -173,12 +179,12 @@
 	@endif
 	
 	<!-- Call restaurant module if defined -->
-    @if(in_array('tables' ,$enabled_modules) || in_array('service_staff' ,$enabled_modules))
+{{-- @if(in_array('tables' ,$enabled_modules) || in_array('service_staff' ,$enabled_modules))
     	<div class="clearfix"></div>
     	<span id="restaurant_module_span">
       		<div class="col-md-3"></div>
     	</span>
-    @endif
+    @endif 
 
 	@if(in_array('kitchen' ,$enabled_modules))
 		<div class="col-md-3">
@@ -192,7 +198,8 @@
 			</div>
 		</div>
     @endif
-    
+		POR AQUI DEBO PONER EL NOMBRE DEL PRODUCTO
+--}}
 </div>
 <!-- include module fields -->
 @if(!empty($pos_module_data))

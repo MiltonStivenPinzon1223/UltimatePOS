@@ -39,6 +39,9 @@
 </head>
 <body
     class="tw-font-sans tw-antialiased tw-text-gray-900 tw-bg-gray-100 @if ($pos_layout) hold-transition lockscreen @else hold-transition skin-@if (!empty(session('business.theme_color'))){{ session('business.theme_color') }}@else{{ 'blue-light' }} @endif sidebar-mini @endif" >
+
+
+
     <div class="tw-flex thetop">
         <script type="text/javascript">
             if (localStorage.getItem("upos_sidebar_collapse") == 'true') {
@@ -136,7 +139,12 @@
                 @includeIf($additional_view)
             @endforeach
         @endif
-        <div>
+    <div>
+
+
+
+
+        
 
             <div class="overlay tw-hidden"></div>
 </body>

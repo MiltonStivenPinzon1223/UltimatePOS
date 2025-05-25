@@ -23,21 +23,23 @@
 @endif
 <input type="hidden" name="transaction_sub_type" id="transaction_sub_type" value="{{ $transaction_sub_type }}">
 @inject('request', 'Illuminate\Http\Request')
-<div class="col-md-12 no-print pos-header">
+<div class="col-md-3 no-print pos-header">
     <input type="hidden" id="pos_redirect_url" value="{{ $pos_redirect_url }}">
-    <div
-        class="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-rounded-xl tw-mx-0 tw-mt-1 tw-mb-0 md:tw-mb-0 tw-p-3">
-        <div class="tw-w-full md:tw-w-1/3">
+    
+    
+    <div class="tw-flex tw-flex-col md:tw-flex-row tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-rounded-xl tw-mx-0 tw-mt-1 tw-mb-0 md:tw-mb-0 tw-p-4">
+        <div class="tw-w-40%">
             <div class="tw-flex tw-items-center tw-gap-2">
                 <p><strong>@lang('sale.location'): &nbsp;</strong></p>
-                <div style="width: 28%">
+
+                <div style="width: auto">
                     @if (empty($transaction->location_id))
                         @if (count($business_locations) > 1)
                             {!! Form::select(
                                 'select_location_id',
                                 $business_locations,
                                 $default_location->id ?? null,
-                                ['class' => 'form-control input-sm', 'id' => 'select_location_id', 'required', 'autofocus'],
+                                ['class' => 'control input-sm', 'id' => 'select_location_id', 'required', 'autofocus'],
                                 $bl_attributes,
                             ) !!}
                         @else
@@ -46,7 +48,9 @@
                     @else
                     {{ $transaction->location->name }}
                     @endif
-                </div>
+                </div>  
+
+                {{--
                 <div
                     class="tw-hidden md:tw-block tw-bg-[#646EE4] hover:tw-bg-[#414aac] tw-py-1.5 tw-px-2 tw-rounded-md">
                      &nbsp; <span
@@ -55,7 +59,6 @@
                         data-toggle="popover" data-placement="bottom" data-content="@include('sale_pos.partials.keyboard_shortcuts_details')"
                         data-html="true" data-trigger="hover" data-original-title="" title=""></i>
                 </div>
-
                 @if (empty($pos_settings['hide_product_suggestion']))
                     <button type="button" title="{{ __('lang_v1.view_products') }}" data-placement="bottom"
                         class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-flex tw-items-center tw-justify-center tw-rounded-md tw-w-8 tw-h-8 tw-text-gray-600 btn-modal pull-right tw-block md:tw-hidden"
@@ -63,15 +66,14 @@
                         <strong><i class="fa fa-cubes fa-lg tw-text-[#00935F] !tw-text-sm"></i></strong>
                     </button>
                 @endif
-
                 <span class="tw-block md:tw-hidden">
                     <i class="fas hamburger fa-bars tw-mx-5"
                         onclick="document.getElementById('pos_header_more_options').classList.toggle('tw-hidden')"></i>
                 </span>
-
+                --}}
             </div>
         </div>
-
+        {{-- 
         <div class="tw-w-full md:tw-w-2/3 !tw-p-0 tw-flex tw-items-center tw-justify-between tw-gap-4 tw-flex-col md:tw-flex-row tw-hidden md:tw-flex"
             id="pos_header_more_options">
             <a href="{{ $go_back_url }}" title="{{ __('lang_v1.go_back') }}"
@@ -82,13 +84,13 @@
                 </strong>
             </a>
 
-            {{-- <a href="{{ $go_back_url }}" title="{{ __('lang_v1.go_back') }}"
+            <a href="{{ $go_back_url }}" title="{{ __('lang_v1.go_back') }}"
               class="md:tw-hidden tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-flex tw-items-center tw-justify-center tw-rounded-md md:tw-w-8 tw-w-auto tw-h-8 tw-text-gray-600 pull-right">
             <strong class="!tw-m-3">
                 <i class="fa fa-backward fa-lg fa fa-backward tw-fa-lg tw-text-[#009EE4] !tw-text-sm"></i>
                 <span class="tw-inline md:tw-hidden">{{ __('lang_v1.go_back') }}</span>
             </strong>
-          </a> --}}
+          </a> 
 
             @if (!isset($pos_settings['hide_recent_trans']) || $pos_settings['hide_recent_trans'] == 0)
                 <button type="button"
@@ -187,7 +189,7 @@
                     <i class="fa fa-window-maximize fa-lg tw-text-[#646EE4] !tw-text-sm"></i>
                     <span class="tw-inline md:tw-hidden">Full Screen</span>
                 </strong>
-            </button>
+            </button>      
 
             <button type="button" id="view_suspended_sales" title="{{ __('lang_v1.view_suspended_sales') }}"
                 class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-flex tw-items-center tw-justify-center tw-rounded-md md:tw-w-8 tw-w-auto tw-h-8 tw-text-gray-600 btn-modal pull-right"
@@ -207,11 +209,12 @@
                 </a>
             @endif
 
-
             @if (Module::has('Repair') && $transaction_sub_type != 'repair')
                 @include('repair::layouts.partials.pos_header')
             @endif
 
+            
+                    DESDE AQUI TENGO QUE HACER EL OTRO CAMBIO - ABRIL  ESTOS ES AGREGA COSTO QUE VA PARA LA CATEGORIA 
             @if (in_array('pos_sale', $enabled_modules) && !empty($transaction_sub_type))
                 @can('sell.create')
                     <a href="{{ action([\App\Http\Controllers\SellPosController::class, 'create']) }}"
@@ -229,9 +232,23 @@
                     <strong><i class="fa fas fa-minus-circle"></i> @lang('expense.add_expense')</strong>
                 </button>
             @endcan
-
         </div>
+        --}}
+        <!-- Botón rojo -->
+        <button type="button" class="btn btn-danger me-2 "><i class="bi bi-pause"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
+            <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
+            </svg>
+        </button>
+        <!-- Botón verde -->
+        <button type="button" class="btn btn-success"><i class="bi bi-play-fill"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+            </svg>
+        </button>
     </div>
+
+        AQUI 
 </div>
 
 <div class="modal fade" id="service_staff_modal" tabindex="-1" role="dialog"
