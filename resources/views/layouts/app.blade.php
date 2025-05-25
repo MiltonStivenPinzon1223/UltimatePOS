@@ -76,7 +76,7 @@
             <input type="hidden" id="status_span" data-status="{{ session('status.success') }}"
                 data-msg="{{ session('status.msg') }}">
         @endif
-        <main class="tw-flex tw-flex-col tw-flex-1 tw-h-full tw-min-w-0 tw-bg-gray-100">
+        <main class="container tw-flex tw-flex-col tw-flex-1 tw-h-full tw-min-w-0 tw-bg-gray-100">
             @if($request->segment(1) != 'customer-display' && !$pos_layout)
                 @include('layouts.partials.header')
             @elseif($request->segment(1) != 'customer-display')
@@ -86,6 +86,7 @@
             <div id="app">
                 @yield('vue')
             </div>
+            
             <div class="tw-flex-1 tw-overflow-y-auto tw-h-screen" id="scrollable-container">
                 @yield('content')
                 @if (!$pos_layout)
@@ -95,6 +96,7 @@
                     @include('layouts.partials.footer_pos')
                 @endif
             </div>
+            
             <div class='scrolltop no-print'>
                 <div class='scroll icon'><i class="fas fa-angle-up"></i></div>
             </div>

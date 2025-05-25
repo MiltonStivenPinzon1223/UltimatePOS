@@ -29,7 +29,10 @@
 
                         <div class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-rounded-2xl tw-bg-white tw-mb-2 md:tw-mb-8 tw-p-2">
                             {{-- <div class="box box-solid mb-12 @if (!isMobile()) mb-40 @endif"> --}}
+
+
                                 <div class="box-body pb-0">
+                                    <!-- Productos-->
                                     {!! Form::hidden('location_id', $default_location->id ?? null, [
                                         'id' => 'location_id',
                                         'data-receipt_printer_type' => !empty($default_location->receipt_printer_type)
@@ -41,7 +44,9 @@
                                     {!! Form::hidden('sub_type', isset($sub_type) ? $sub_type : null) !!}
                                     <input type="hidden" id="item_addition_method"
                                         value="{{ $business_details->item_addition_method }}">
-                                    @include('sale_pos.partials.pos_form')
+                                    <!-- Fin Productos-->
+                                    
+                                    @include('sale_pos.partials.pos_form') <!-- titulos de prodcuto, cantidad y total -->
 
                                     @include('sale_pos.partials.pos_form_totals')
 
@@ -56,15 +61,19 @@
                                     @endif
                                 </div>
                             {{-- </div> --}}
+
+                            
                         </div>
 
 
                     </div>
+                    
                     @if (empty($pos_settings['hide_product_suggestion']) && !isMobile())
                         <div class="md:tw-no-padding tw-w-full col-lg-9 col-sm-9">
                             @include('sale_pos.partials.pos_sidebar')
                         </div>
                     @endif
+                    
                 </div>
             </div>
         </div>

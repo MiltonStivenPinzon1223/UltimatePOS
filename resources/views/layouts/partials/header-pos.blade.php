@@ -23,15 +23,17 @@
 @endif
 <input type="hidden" name="transaction_sub_type" id="transaction_sub_type" value="{{ $transaction_sub_type }}">
 @inject('request', 'Illuminate\Http\Request')
-<div class="row">
-    <div class="col-md-3 no-print pos-header">
+<div class="row" style="display:flex; justify-content:end; margin-top: 20px">
+    <div class="col-md-3 no-print pos-header" style="margin-left: 20px">
         <input type="hidden" id="pos_redirect_url" value="{{ $pos_redirect_url }}">
-        <div class="tw-flex tw-flex-col md:tw-flex-row tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-rounded-xl tw-mx-0 tw-mt-1 tw-mb-0 md:tw-mb-0 tw-p-4">
-            <div class="tw-w-40%">
-                <div class="tw-flex tw-items-center tw-gap-2">
+        <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-rounded-xl tw-mx-0 tw-mt-1 tw-mb-0 md:tw-mb-0 tw-p-4" 
+             style="overflow: hidden; flex-shrink: 1;min-width: 0;">
+            <div class="tw-w-full">
+                
+                <div class="tw-flex tw-items-center tw-gap-3">
                     <p><strong>@lang('sale.location'): &nbsp;</strong></p>
 
-                    <div style="width: auto">
+                    <div style="width: 45%">
                         @if (empty($transaction->location_id))
                             @if (count($business_locations) > 1)
                                 {!! Form::select(
@@ -48,7 +50,26 @@
                         {{ $transaction->location->name }}
                         @endif
                     </div>  
-
+                    
+                    <div class="tw-flex tw-w-full tw-gap-3 tw-items-end">
+                        <div style="width: 10px; max-width: 20px"></div>
+                        <!-- Botón rojo -->
+                        <button type="button" class="btn btn-danger" style="align-content: flex-end">
+                            <i class="bi bi-pause"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
+                            <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
+                            </svg>
+                        </button>
+                        <!-- Botón verde -->
+                        <button type="button" class="btn btn-success">
+                            <i class="bi bi-play-fill"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                            </svg>
+                        </button>
+                    </div>
+                
+                    
                     {{--
                     <div
                         class="tw-hidden md:tw-block tw-bg-[#646EE4] hover:tw-bg-[#414aac] tw-py-1.5 tw-px-2 tw-rounded-md">
@@ -214,11 +235,34 @@
 
                 
                         DESDE AQUI TENGO QUE HACER EL OTRO CAMBIO - ABRIL  ESTOS ES AGREGA COSTO QUE VA PARA LA CATEGORIA 
+                
+            </div>
+            --}}
+        </div>
+    </div>
+
+
+    <div class="col-md-9" >
+        <div class="d-flex justify-content-center mt-3 tw-h-auto" style="margin:0px 20px 0px 19px">
+            <div class="row" id="categories-container">
+                @foreach ($categories as $index => $category)
+
+                <button type="button" class="col-md-1/3 tw-dw-btn btn-secondary tw-dw-btn-sm main-category" style="margin-top: 10px" data-value="{{ $category['id'] }}" data-parent="0">
+                    <div class=" col-xs-12 tw-mb-7 tw-w-auto tw-cursor-pointer main-category-div  no-print" style="margin-bottom: 0px"
+                        data-value="{{ $category['id'] }}" data-name="{{ $category['name'] }}" data-parent="1">
+                        <h4 style="align-text: center; font-size: inherit; font-weight: inherit; margin-bottom: 0px; margin-top: 0px">
+                            {{ $category['name'] }}</h4>
+                        <div class="tw-dw-card-actions tw-justify-center">
+                        </div>
+                    </div>
+                </button>
+                @endforeach
+
                 @if (in_array('pos_sale', $enabled_modules) && !empty($transaction_sub_type))
                     @can('sell.create')
                         <a href="{{ action([\App\Http\Controllers\SellPosController::class, 'create']) }}"
                             title="@lang('sale.pos_sale')"
-                            class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-w-auto tw-h-auto tw-py-1 tw-px-4 tw-rounded-md pull-right">
+                            class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-w-auto tw-h-auto tw-py-1 tw-px-4 tw-rounded-md  ">
                             <strong><i class="fa fa-th-large tw-text-[#00935F] !tw-text-sm"></i> &nbsp;
                                 @lang('sale.pos_sale')</strong>
                         </a>
@@ -226,50 +270,17 @@
                 @endif
                 @can('expense.add')
                     <button type="button" title="{{ __('expense.add_expense') }}" data-placement="bottom"
-                        class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-w-auto tw-h-auto tw-py-1 tw-px-4 tw-rounded-md btn-modal pull-right"
-                        id="add_expense">
+                        class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-w-auto tw-h-auto tw-py-1 tw-px-4 tw-rounded-md btn-modal"
+                        style="margin-top: 10px" id="add_expense">
                         <strong><i class="fa fas fa-minus-circle"></i> @lang('expense.add_expense')</strong>
                     </button>
                 @endcan
             </div>
-            --}}
-            <!-- Botón rojo -->
-            <button type="button" class="btn btn-danger me-2 "><i class="bi bi-pause"></i>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
-                <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
-                </svg>
-            </button>
-            <!-- Botón verde -->
-            <button type="button" class="btn btn-success"><i class="bi bi-play-fill"></i>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
-                </svg>
-            </button>
-        </div>
 
-            AQUI 
-    </div>
-    <div class="col-md-9 px-3">
-        <div class="d-flex justify-content-center mt-3">
-            <div class="row" id="categories-container">
-                @foreach ($categories as $index => $category)
-                <button type="button" class="col-md-3 tw-dw-btn btn-secondary tw-dw-btn-sm main-category tw-mb-2" data-value="{{ $category['id'] }}" data-parent="0">
-                    <div class=" col-xs-12 tw-mb-7 tw-w-auto  tw-h-28  tw-cursor-pointer main-category-div  no-print"
-                        data-value="{{ $category['id'] }}" data-name="{{ $category['name'] }}" data-parent="1">
-                        <h4 class="tw-flex tw-items-center tw-justify-center"
-                            style="margin-bottom: 0px; margin-top:0px; font-size: inherit; font-weight: inherit;">
-                            {{ $category['name'] }}</h4>
-                        <div class="tw-dw-card-actions tw-justify-center">
-                        </div>
-                    </div>
-                </button>
-                @endforeach
-            </div>
-
-            <div class="d-flex justify-content-center mt-3">
+            {{-- <div class="d-flex justify-content-center mt-3">
                 <button class="btn btn-secondary me-2" id="prev-page">Anterior</button>
                 <button class="btn btn-secondary" id="next-page">Siguiente</button>
-            </div>
+            </div> --}}
         </div>
 
     </div>

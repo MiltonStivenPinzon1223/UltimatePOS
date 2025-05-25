@@ -1,12 +1,12 @@
-<div class="row">
-	<div class="col-md-4">
+<div class="row" style="display:flex; flex-direction: column; width:auto; height: auto;">
+	<div class="col-md-4" style="width: auto" >
 		<div class="form-group">
+
 			<div class="input-group">
 				<span class="input-group-addon">
 					<i class="fa fa-user"></i>
 				</span>
-		
-			{{--	<input type="hidden" id="default_customer_id" 
+				<input type="hidden" id="default_customer_id" 
 				value="{{ $walk_in_customer['id'] ?? ''}}" >
 				<input type="hidden" id="default_customer_name" 
 				value="{{ $walk_in_customer['name'] ?? ''}}" >
@@ -14,6 +14,7 @@
 				value="{{ $walk_in_customer['balance'] ?? ''}}" >
 				<input type="hidden" id="default_customer_address" 
 				value="{{ $walk_in_customer['shipping_address'] ?? ''}}" >
+				
 				@if(!empty($walk_in_customer['price_calculation_type']) && $walk_in_customer['price_calculation_type'] == 'selling_price_group')
 					<input type="hidden" id="default_selling_price_group" 
 				value="{{ $walk_in_customer['selling_price_group_id'] ?? ''}}" >
@@ -23,13 +24,13 @@
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default bg-white btn-flat add_new_customer" data-name=""  @if(!auth()->user()->can('customer.create')) disabled @endif><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
 				</span>
-			--}}
-
 			</div>
+
 			<small class="text-danger hide contact_due_text"><strong>@lang('account.customer_due'):</strong> <span></span></small>
 		</div>
 	</div>
-	<div class="col-md-8">
+
+	<div class="col-md-8" style="width: auto">
 		<div class="form-group">
 			<div class="input-group">
 				<div class="input-group-btn">
@@ -55,9 +56,13 @@
 		</div>
 	</div>
 </div>
+
+
+
+
 <div class="row">
 	@if(!empty($pos_settings['show_invoice_layout']))
-	<div class="col-md-4">
+	<div class="col-md-4" >
 		<div class="form-group">
 		{!! Form::select('invoice_layout_id', 
 					$invoice_layouts, $default_location->invoice_layout_id, ['class' => 'form-control select2', 'placeholder' => __('lang_v1.select_invoice_layout'), 'id' => 'invoice_layout_id']); !!}
@@ -226,7 +231,8 @@
 			<thead>
 				<tr>
 					<th class="tex-center tw-text-sm md:!tw-text-base tw-font-bold @if(!empty($pos_settings['inline_service_staff'])) col-md-3 @else col-md-4 @endif">	
-						@lang('sale.product') @show_tooltip(__('lang_v1.tooltip_sell_product_column'))
+						 @lang('sale.product') 
+						 {{-- @show_tooltip(__('lang_v1.tooltip_sell_product_column')) --}} 
 					</th>
 					<th class="text-center tw-text-sm md:!tw-text-base tw-font-bold col-md-3">
 						@lang('sale.qty')
@@ -236,11 +242,11 @@
 							@lang('restaurant.service_staff')
 						</th>
 					@endif
-					<th class="text-center tw-text-sm md:!tw-text-base tw-font-bold col-md-2 {{$hide_tax}}">
+					{{-- <th class="text-center tw-text-sm md:!tw-text-base tw-font-bold col-md-2 {{$hide_tax}}">
 						@lang('sale.price_inc_tax')
-					</th>
+					</th> --}}
 					<th class="text-center tw-text-sm md:!tw-text-base tw-font-bold col-md-2">
-						@lang('sale.subtotal')
+						@lang('sale.total')
 					</th>
 					<th class="text-center"><i class="fas fa-times tw-text-base" aria-hidden="true"></i></th>
 				</tr>
