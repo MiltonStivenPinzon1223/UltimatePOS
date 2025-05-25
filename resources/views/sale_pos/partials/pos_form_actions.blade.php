@@ -1,17 +1,15 @@
 @php
     $is_mobile = isMobile();
 @endphp
-<div class="row">
-    <div
-        class="pos-form-actions tw-rounded-tr-xl tw-rounded-tl-xl tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-cursor-pointer">
-        <div
-            class="tw-flex tw-items-center tw-justify-between tw-flex-col sm:tw-flex-row md:tw-flex-row lg:tw-flex-row xl:tw-flex-row tw-gap-2 tw-px-4 tw-py-0 tw-overflow-x-auto tw-w-full">
+{{-- <div class="row">
+    <div class="pos-form-actions tw-rounded-tr-xl tw-rounded-tl-xl tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-cursor-pointer">
+        <div class="tw-flex tw-items-center tw-justify-between tw-flex-col sm:tw-flex-row md:tw-flex-row lg:tw-flex-row xl:tw-flex-row tw-gap-2 tw-px-4 tw-py-0 tw-overflow-x-auto tw-w-full">
 
             <div class="md:!tw-w-none !tw-flex md:!tw-hidden !tw-flex-row !tw-items-center !tw-gap-3">
                 <div class="tw-pos-total tw-flex tw-items-center tw-gap-3">
                     <div class="tw-text-black tw-font-bold tw-text-sm tw-flex tw-items-center tw-flex-col tw-leading-1">
                         <div>@lang('sale.total_payable'):</div>
-                        {{-- <div>Payable:</div> --}}
+                       <!-- <div>Payable:</div> -->
                     </div>
                     <input type="hidden" name="final_total" id="final_total_input" value="0.00">
                     <span id="total_payable" class="tw-text-green-900 tw-font-bold tw-text-sm number">0.00</span>
@@ -115,12 +113,12 @@
                 @endif
 
                 @if (!$is_mobile)
-                    {{-- <div class="bg-navy pos-total text-white ">
+                    <div class="bg-navy pos-total text-white ">
 					<span class="text">@lang('sale.total_payable')</span>
 					<input type="hidden" name="final_total" 
 												id="final_total_input" value=0>
 					<span id="total_payable" class="number">0</span>
-					</div> --}}
+					</div>
                     <div class="pos-total md:tw-flex md:tw-items-center md:tw-gap-3 tw-hidden">
                         <div
                             class="tw-text-black tw-font-bold tw-text-base md:tw-text-2xl tw-flex tw-items-center tw-flex-col">
@@ -144,7 +142,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @if (isset($transaction))
     @include('sale_pos.partials.edit_discount_modal', [
         'sales_discount' => $transaction->discount_amount,

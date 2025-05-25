@@ -19,6 +19,7 @@
 <!DOCTYPE html>
 <html class="tw-bg-white tw-scroll-smooth" lang="{{ app()->getLocale() }}"
     dir="{{ in_array(session()->get('user.language', config('app.locale')), config('constants.langs_rtl')) ? 'rtl' : 'ltr' }}">
+
 <head>
     <!-- Tell the browser to be responsive to screen width -->
     <meta charset="utf-8">
@@ -26,19 +27,20 @@
         name="viewport">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>@yield('title') - {{ Session::get('business.name') }}</title>
 
     @include('layouts.partials.css')
-    
+
 
     @include('layouts.partials.extracss')
 
     @yield('css')
 
 </head>
+
 <body
-    class="tw-font-sans tw-antialiased tw-text-gray-900 tw-bg-gray-100 @if ($pos_layout) hold-transition lockscreen @else hold-transition skin-@if (!empty(session('business.theme_color'))){{ session('business.theme_color') }}@else{{ 'blue-light' }} @endif sidebar-mini @endif" >
+    class="tw-font-sans tw-antialiased tw-text-gray-900 tw-bg-gray-100 @if ($pos_layout) hold-transition lockscreen @else hold-transition skin-@if (!empty(session('business.theme_color'))){{ session('business.theme_color') }}@else{{ 'blue-light' }} @endif sidebar-mini @endif">
 
 
 
@@ -77,7 +79,7 @@
                 data-msg="{{ session('status.msg') }}">
         @endif
         <main class="container tw-flex tw-flex-col tw-flex-1 tw-h-full tw-min-w-0 tw-bg-gray-100">
-            @if($request->segment(1) != 'customer-display' && !$pos_layout)
+            @if ($request->segment(1) != 'customer-display' && !$pos_layout)
                 @include('layouts.partials.header')
             @elseif($request->segment(1) != 'customer-display')
                 @include('layouts.partials.header-pos')
@@ -86,17 +88,17 @@
             <div id="app">
                 @yield('vue')
             </div>
-            
+
             <div class="tw-flex-1 tw-overflow-y-auto tw-h-screen" id="scrollable-container">
                 @yield('content')
                 @if (!$pos_layout)
-                
+
                     @include('layouts.partials.footer')
                 @else
                     @include('layouts.partials.footer_pos')
                 @endif
             </div>
-            
+
             <div class='scrolltop no-print'>
                 <div class='scroll icon'><i class="fas fa-angle-up"></i></div>
             </div>
@@ -141,22 +143,22 @@
                 @includeIf($additional_view)
             @endforeach
         @endif
-    <div>
+        <div>
 
 
 
 
-        
+
 
             <div class="overlay tw-hidden"></div>
 </body>
 <style>
     @media print {
-  #scrollable-container {
-    overflow: visible !important;
-    height: auto !important;
-  }
-}
+        #scrollable-container {
+            overflow: visible !important;
+            height: auto !important;
+        }
+    }
 </style>
 <style>
     .small-view-side-active {
@@ -164,6 +166,7 @@
         z-index: 1000;
         position: absolute;
     }
+
     .overlay {
         width: 100vw;
         height: 100vh;
@@ -180,13 +183,9 @@
         margin: 2px;
     }
 
-    #scrollable-container{
-        position:relative;
+    #scrollable-container {
+        position: relative;
     }
-    
-
-
-
 </style>
 
 </html>
