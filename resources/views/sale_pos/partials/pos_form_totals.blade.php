@@ -84,10 +84,10 @@
 					</td>
 					@endif
 				</tr>
-				<tr style="flex:1">
-					<td>
-						<b class="tw-text-base md:tw-text-lg tw-font-bold">@lang('sale.total'):</b> &nbsp;
-						<span class="price_total tw-text-base md:tw-text-lg tw-font-semibold">0</span>
+				<tr style="flex:1; align-content: center">
+					<td >
+						<b class="tw-text-xl md:tw-text-4xl tw-font-bold">@lang('$')</b> &nbsp;
+						<span class="price_total tw-text-base md:tw-text-lg tw-font-semibold" style="font-size: 2rem">0</span>
 					</td>
 				</tr>
 			</tbody>
