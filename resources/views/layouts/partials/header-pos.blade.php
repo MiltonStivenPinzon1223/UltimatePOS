@@ -30,10 +30,10 @@
                  style="overflow: hidden; flex-shrink: 1;min-width: 0; margin-left: 6px">
             <div class="tw-w-full" >
                 
-                <div class="tw-flex tw-items-center tw-gap-3">
-                    <p style="height: 20px; width: auto"><strong>@lang('sale.location'): &nbsp;</strong></p>
+                <div class="tw-flex tw-items-center tw-gap-1">
+                    <p style="height: 20px; width: auto; font-size:10px"><strong>@lang('sale.location'): &nbsp;</strong></p>
 
-                    <div style="width: 45%">
+                    <div style="width: 100px">
                         @if (empty($transaction->location_id))
                             @if (count($business_locations) > 1)
                                 {!! Form::select(
@@ -51,7 +51,7 @@
                         @endif
                     </div>  
                     
-                    <div class="tw-flex tw-w-full tw-gap-3 tw-items-end">
+                    <div class="tw-flex tw-w-full tw-gap-1 tw-items-end">
                         <div style="width: 10px; max-width: 20px"></div>
                         <!-- Botón rojo -->
                         <button type="button" class="btn btn-danger" style="align-content: flex-end">
