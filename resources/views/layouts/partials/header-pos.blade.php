@@ -27,20 +27,20 @@
     <div class="col-md-3 no-print pos-header" style="margin-left: 20px">
         <input type="hidden" id="pos_redirect_url" value="{{ $pos_redirect_url }}">
         <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-rounded-xl tw-mx-0 tw-mt-1 tw-mb-0 md:tw-mb-0 tw-p-4" 
-                 style="overflow: hidden; flex-shrink: 1;min-width: 0; margin-left: 6px">
+                 style="overflow: hidden; flex-shrink: 1;min-width: 0; margin-left: 6px;">
             <div class="tw-w-full" >
                 
                 <div class="tw-flex tw-items-center tw-gap-1">
                     <p style="height: 20px; width: auto; font-size:10px"><strong>@lang('sale.location'): &nbsp;</strong></p>
 
-                    <div style="width: 100px">
+                    <div>
                         @if (empty($transaction->location_id))
                             @if (count($business_locations) > 1)
                                 {!! Form::select(
                                     'select_location_id',
                                     $business_locations,
                                     $default_location->id ?? null,
-                                    ['class' => 'control input-sm', 'id' => 'select_location_id', 'required', 'autofocus'],
+                                    ['class' => 'control input-sm', 'id' => 'select_location_id', 'required', 'autofocus', 'style' => 'background:white; border:1px solid black; width: 120px;'],
                                     $bl_attributes,
                                 ) !!}
                             @else
