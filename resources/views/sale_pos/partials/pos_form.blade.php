@@ -1,5 +1,6 @@
-<div class="row" style="display:flex; flex-direction: column; width:auto; height: auto;">
-	<div class="col-md-4" style="max-width: 10vh; width:auto; padding: none" >
+<div class="row" style="display:flex; flex-direction: column;  height: auto;overflow: hidden;">
+	<div class="col-md-4" style=" width:auto;" > 
+		{{-- aquiiiiii --}}
 		<div class="form-group">
 
 			<div class="input-group">
@@ -19,9 +20,11 @@
 					<input type="hidden" id="default_selling_price_group" 
 				value="{{ $walk_in_customer['selling_price_group_id'] ?? ''}}" >
 				@endif
+				 
 				{!! Form::select('contact_id', 
-					[], null, ['class' => 'form-control mousetrap', 'id' => 'customer_id', 'placeholder' => 'Enter Customer name / phone', 'required', 'style'=>'width: auto']); 
+					[], null, ['class' => 'form-control mousetrap tw-w-full', 'id' => 'customer_id', 'placeholder' => 'Enter Customer name / phone', 'required']); 
 				!!}
+				
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default bg-white btn-flat add_new_customer" data-name=""  @if(!auth()->user()->can('customer.create')) disabled @endif><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
 					<button type="button" class="btn btn-default bg-white btn-flat add_new_customer" data-name=""  @if(!auth()->user()->can('customer.create')) disabled @endif><i class="bi bi-pencil-square text-primary fa-lg"></i>

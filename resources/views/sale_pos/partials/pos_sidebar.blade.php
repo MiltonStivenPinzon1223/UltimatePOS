@@ -173,7 +173,7 @@
             id="show_featured_products">@lang('lang_v1.featured_products')</button>
     </div>
 </div>
-<div class="row">
+<div class="row">   
     <input type="hidden" id="suggestion_page" value="1">
     <div class="col-md-12" style="height: 610px;">
         <div class="eq-height-row" id="product_list_body"></div>
