@@ -76,14 +76,14 @@
                 <div style="display: flex; max-width: 24%;">
                     @if (!Gate::check('disable_pay_checkout') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
                     <button type="button" style="flex: 1; margin-left: 12px" 
-                        class="tw-hidden md:tw-flex md:tw-flex-row md:tw-items-center md:tw-justify-center md:tw-gap-1 tw-font-bold tw-text-white tw-cursor-pointer tw-text-xs md:tw-text-sm tw-bg-[#001F3E] btn btn-success tw-rounded-md tw-p-2 tw-w-[8.5rem] @if (!$is_mobile)  @endif no-print @if ($pos_settings['disable_pay_checkout'] != 0) hide @endif"
+                        class="tw-hidden md:tw-flex md:tw-flex-row md:tw-items-center md:tw-justify-center md:tw-gap-1 tw-font-bold tw-text-white tw-cursor-pointer tw-text-xs md:tw-text-sm tw-bg-[#001F3E] btn btn-success tw-rounded-md tw-p-2 tw-w-[8.5rem] @if (!isMobile())  @endif no-print @if ($pos_settings['disable_pay_checkout'] != 0) hide @endif"
                         id="pos-finalize" title="@lang('lang_v1.tooltip_checkout_multi_pay')"><i class=""
                             aria-hidden="true"></i> @lang('lang_v1.checkout_multi_pay') </button>
                     @endif
                     <div style="width: 10px"></div>
                     @if (!Gate::check('disable_express_checkout') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
                         <button type="button" style="flex: 1; margin-right: 12px"
-                            class="tw-font-bold tw-text-white tw-cursor-pointer tw-text-xs md:tw-text-sm tw-bg-[rgb(40,183,123)] tw-p-2 tw-rounded-md tw-w-[8.5rem] tw-hidden md:tw-flex lg:tw-flex lg:tw-flex-row btn btn-warning lg:tw-items-center lg:tw-justify-center lg:tw-gap-1 @if (!$is_mobile)  @endif no-print @if ($pos_settings['disable_express_checkout'] != 0 || !array_key_exists('cash', $payment_types)) hide @endif pos-express-finalize"
+                            class="tw-font-bold tw-text-white tw-cursor-pointer tw-text-xs md:tw-text-sm tw-bg-[rgb(40,183,123)] tw-p-2 tw-rounded-md tw-w-[8.5rem] tw-hidden md:tw-flex lg:tw-flex lg:tw-flex-row btn btn-warning lg:tw-items-center lg:tw-justify-center lg:tw-gap-1 @if (!isMobile())  @endif no-print @if ($pos_settings['disable_express_checkout'] != 0 || !array_key_exists('cash', $payment_types)) hide @endif pos-express-finalize"
                             data-pay_method="cash" title="@lang('tooltip.express_checkout')"> <i class=""
                                 aria-hidden="true"></i> @lang('lang_v1.express_checkout_cash')</button>
                     @endif
