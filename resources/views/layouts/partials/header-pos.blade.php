@@ -247,7 +247,7 @@
             <div class="row" id="categories-container">
                 @foreach ($categories as $index => $category)
 
-                <button type="button" class="col-md-1/3 tw-dw-btn btn-secondary tw-dw-btn-sm main-category" style="margin-top: 10px; ; height:5vh; font-size: 15px" data-value="{{ $category['id'] }}" data-parent="0">
+                <button type="button" class="col-md-1/3 tw-dw-btn btn-secondary tw-dw-btn-sm main-category" style="margin-top: 10px; ; height:5vh; font-size: 15px; background-color: white; border: none" data-value="{{ $category['id'] }}" data-parent="0">
                     <div class=" col-xs-12 tw-mb-7 tw-w-auto tw-cursor-pointer main-category-div  no-print" style="margin-bottom: 0px"
                         data-value="{{ $category['id'] }}" data-name="{{ $category['name'] }}" data-parent="1">
                         <h4 style="align-text: center; font-size: inherit; font-weight: inherit; margin-bottom: 0px; margin-top: 0px">
