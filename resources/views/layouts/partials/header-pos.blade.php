@@ -23,7 +23,7 @@
 @endif
 <input type="hidden" name="transaction_sub_type" id="transaction_sub_type" value="{{ $transaction_sub_type }}">
 @inject('request', 'Illuminate\Http\Request')
-<div class="row" style="display:flex; justify-content:end; margin-top: 20px">
+<div class="row" style="display:flex; margin-top: 20px">
     <div class="col-md-3 no-print pos-header" style="margin-left: 20px">
         <input type="hidden" id="pos_redirect_url" value="{{ $pos_redirect_url }}">
         <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white tw-rounded-xl tw-mx-0 tw-mt-1 tw-mb-0 md:tw-mb-0 tw-p-4" 
@@ -244,7 +244,7 @@
 
     <div class="col-md-9" >
         <div class="d-flex justify-content-center mt-3 tw-h-auto" style="margin:0px 20px 0px 19px">
-            <div class="row" id="categories-container">
+            <div  id="categories-container" style="display:flex;gap:10px; overflow-y: auto; padding-bottom: 10px">
                 @foreach ($categories as $index => $category)
 
                 <button type="button" class="col-md-1/3 tw-dw-btn btn-secondary tw-dw-btn-sm main-category" style="margin-top: 10px; ; height:5vh; font-size: 15px; background-color: white; border: none" data-value="{{ $category['id'] }}" data-parent="0">
