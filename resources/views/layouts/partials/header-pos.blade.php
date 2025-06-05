@@ -244,7 +244,7 @@
 
     <div class="col-md-9" >
         <div class="d-flex justify-content-center mt-3 tw-h-auto" style="margin:0px 20px 0px 19px">
-            <div  id="categories-container" style="display:flex;gap:10px; overflow-y: auto; padding-bottom: 10px">
+            <div  id="categories-container" style="display:flex;gap:10px; overflow-y: auto; padding-bottom: 10px;wid">
                 @foreach ($categories as $index => $category)
 
                 <button type="button" class="col-md-1/3 tw-dw-btn btn-secondary tw-dw-btn-sm main-category" style="margin-top: 10px; ; height:5vh; font-size: 15px; background-color: white; border: none" data-value="{{ $category['id'] }}" data-parent="0">
@@ -270,8 +270,8 @@
                 @endif
                 @can('expense.add')
                     <button type="button" title="{{ __('expense.add_expense') }}" data-placement="bottom"
-                        class="tw-shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] tw-bg-white hover:tw-bg-white/60 tw-cursor-pointer tw-border-2 tw-w-auto tw-h-auto tw-py-1 tw-px-4 tw-rounded-md btn-modal"
-                        style="margin-top: 10px" id="add_expense">
+                        class="tw-bg-white tw-dw-btn tw-cursor-pointer btn-modal"
+                        style="margin-top: 10px; height: 5vh; font-size: 15px" id="add_expense">
                         <strong><i class="fa fas fa-minus-circle"></i> @lang('expense.add_expense')</strong>
                     </button>
                 @endcan
