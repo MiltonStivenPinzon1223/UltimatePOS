@@ -1,5 +1,5 @@
 <div class="col-md-2 col-xs-4 product_list no-print">
-    <div class="product_box hover:tw-shadow-lg hover:tw-animate-pulse">
+    <div class="add-product hover:tw-shadow-lg hover:tw-animate-pulse pos_add_quick_product" data-href="{{action([\App\Http\Controllers\ProductController::class, 'quickAdd'])}}" data-container=".quick_add_product_modal">
         <div class="image-container">
             <i class="fa fa-plus-circle text-danger" style="font-size:4em;"></i>
         </div>
@@ -8,6 +8,7 @@
             <br>
             <small class="text text-muted">Crear Producto
             </small>
+            <br>
             <br>
         </div>
     </div>

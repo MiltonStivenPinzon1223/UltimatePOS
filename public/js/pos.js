@@ -1300,7 +1300,7 @@ $(document).ready(function() {
     });
 
     //Quick add product
-    $(document).on('click', 'button.pos_add_quick_product', function() {
+    $(document).on('click', '.pos_add_quick_product', function() {
         var url = $(this).data('href');
         var container = $(this).data('container');
         $.ajax({
