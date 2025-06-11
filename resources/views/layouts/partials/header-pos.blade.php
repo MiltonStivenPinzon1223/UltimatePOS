@@ -54,19 +54,44 @@
                     <div class="tw-flex tw-w-full tw-gap-1 tw-items-end">
                         <div style="width: 10px; max-width: 20px"></div>
                         <!-- Botón rojo -->
-                        <button type="button" class="btn btn-danger" style="align-content: flex-end">
+                        {{-- <button type="button" class="btn btn-danger" style="align-content: flex-end">
                             <i class="bi bi-pause"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
                             <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
                             </svg>
-                        </button>
+                        </button> --}}
+                        <!-- Botón rojo Nuevo -->
+                        @if (!Gate::check('disable_suspend_sale') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
+                            @if (empty($pos_settings['disable_suspend']))
+                                <button type="button"
+                                    class="btn btn-danger no-print pos-express-finalize" style="align-content: flex-end"
+                                    data-pay_method="suspend"
+                                    @if (!empty($only_payment)) disabled @endif>
+                                    <i class="bi bi-pause"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
+                                        <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/>
+                                    </svg>
+                                </button>
+                            @endif
+                        @endif
                         <!-- Botón verde -->
-                        <button type="button" class="btn btn-success">
+                        {{-- <button type="button" class="btn btn-success">
                             <i class="bi bi-play-fill"></i>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                             <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
                             </svg>
-                        </button>
+                        </button> --}}
+                        {{-- Boton Verde Nuevo --}}
+                        @if (!Gate::check('disable_draft') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
+                            <button type="button" class="btn btn-success  @if ($pos_settings['disable_draft'] != 0) hide @endif"
+                                id="pos-draft" @if (!empty($only_payment)) disabled @endif>
+                                <i class="bi bi-play-fill"></i> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                                </svg>
+                            </button>
+                            
+                         @endif
                     </div>
                 
                     
