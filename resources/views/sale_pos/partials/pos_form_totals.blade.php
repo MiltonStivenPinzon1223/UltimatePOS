@@ -85,9 +85,9 @@
 					@endif
 				</tr>
 				<tr style="flex:1; align-content: center">
-					<td >
-						<b class="tw-text-xl md:tw-text-4xl tw-font-bold" style="font-size: 10px">@lang('$')</b> &nbsp;
-						<span class="price_total tw-text-base md:tw-text-lg tw-font-semibold"  style="font-size: 10px">0</span>
+					<td style="border:0px; background-color: black; color: white; font-size: 20px">
+						<b class="">@lang('$')</b> &nbsp;
+						<span class="price_total"  >0</span>
 					</td>
 				</tr>
 			</tbody>

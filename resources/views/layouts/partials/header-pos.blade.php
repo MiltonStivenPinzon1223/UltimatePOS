@@ -83,17 +83,29 @@
                         </button> --}}
                         {{-- Boton Verde Nuevo --}}
                         @if (!Gate::check('disable_draft') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
-                            <button type="button" class="btn btn-success  @if ($pos_settings['disable_draft'] != 0) hide @endif"
+                            {{-- <button type="button" class="btn btn-success  @if ($pos_settings['disable_draft'] != 0) hide @endif"
                                 id="pos-draft" @if (!empty($only_payment)) disabled @endif>
                                 <i class="bi bi-play-fill"></i> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
                                 </svg>
+                            </button> --}}
+                            <button type="button" id="view_suspended_sales" title="{{ __('lang_v1.  view_suspended_sales') }}"
+                                    class="btn btn-success btn-modal pull-right"
+                                    data-container=".view_modal" data-href="{{ $view_suspended_sell_url }}">
+                          
+                                <i class="bi bi-play-fill"></i> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                                </svg>
+                           
                             </button>
-                            
                          @endif
+
+                        
                     </div>
                 
+                    
                     
                     {{--
                     <div
