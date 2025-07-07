@@ -65,9 +65,9 @@
                             @lang('lang_v1.suspend')
                         </button>
                     @endif
-                @endif
+                @endif--}}
 
-                @if (!Gate::check('disable_credit_sale') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
+                {{-- @if (!Gate::check('disable_credit_sale') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
                     @if (empty($pos_settings['disable_credit_sale_button']))
                         <input type="hidden" name="is_credit_sale" value="0" id="is_credit_sale">
                         <button type="button"
@@ -77,7 +77,8 @@
                             <i class="fas fa-check tw-text-[#5E5CA8]" aria-hidden="true"></i> @lang('lang_v1.credit_sale')
                         </button>
                     @endif
-                @endif
+                @endif --}}
+                {{--
                 @if (!Gate::check('disable_card') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
                     <button type="button"
                         class="tw-font-bold tw-text-gray-700 tw-cursor-pointer tw-text-xs md:tw-text-sm tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-1  no-print @if (!empty($pos_settings['disable_suspend']))  @endif pos-express-finalize @if (!array_key_exists('card', $payment_types)) hide @endif @if ($is_mobile) col-xs-6 @endif"
@@ -110,16 +111,16 @@
                         class="tw-font-bold tw-text-white tw-cursor-pointer tw-text-xs md:tw-text-sm tw-bg-red-600 tw-p-2 tw-rounded-md tw-w-[8.5rem] tw-hidden md:tw-flex lg:tw-flex lg:tw-flex-row lg:tw-items-center lg:tw-justify-center lg:tw-gap-1 hide"
                         id="pos-delete" @if (!empty($only_payment)) disabled @endif> <i
                             class="fas fa-trash-alt"></i> @lang('messages.delete')</button>
-                @endif
+                @endif--}}
 
                 @if (!$is_mobile)
-                    <div class="bg-navy pos-total text-white ">
-					<span class="text">@lang('sale.total_payable')</span>
-					<input type="hidden" name="final_total" 
+                    <div class="hidden bg-navy pos-total text-white ">
+					    <span class="text">@lang('sale.total_payable')</span>
+					    <input type="hidden" name="final_total" 
 												id="final_total_input" value=0>
-					<span id="total_payable" class="number">0</span>
+					    <span id="total_payable" class="number">0</span>
 					</div>
-                    <div class="pos-total md:tw-flex md:tw-items-center md:tw-gap-3 tw-hidden">
+                    <div class="hidden pos-total md:tw-flex md:tw-items-center md:tw-gap-3 tw-hidden">
                         <div
                             class="tw-text-black tw-font-bold tw-text-base md:tw-text-2xl tw-flex tw-items-center tw-flex-col">
                             <div>@lang('sale.total')</div>
@@ -132,7 +133,7 @@
                 @endif
             </div>
 
-            <div class="tw-w-full md:tw-w-fit tw-flex tw-flex-col tw-items-end tw-gap-3 tw-hidden md:tw-block">
+            {{--<div class="tw-w-full md:tw-w-fit tw-flex tw-flex-col tw-items-end tw-gap-3 tw-hidden md:tw-block">
                 @if (!isset($pos_settings['hide_recent_trans']) || $pos_settings['hide_recent_trans'] == 0)
                     <button type="button"
                         class="tw-font-bold tw-bg-[#646EE4] hover:tw-bg-[#414aac] tw-rounded-full tw-text-white tw-w-full md:tw-w-fit tw-px-5 tw-h-11 tw-cursor-pointer tw-text-xs md:tw-text-sm"

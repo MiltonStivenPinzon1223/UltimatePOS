@@ -856,7 +856,7 @@ return [
     'business_location_deactivated_successfully' => 'Sucursal del negocio desactivada',
     'show_credit_sale_button' => 'Mostrar botón de venta de crédito',
     'show_credit_sale_btn_help' => 'Si el botón de venta de crédito habilitado se mostrará en lugar del botón Tarjeta en la pantalla de la posición',
-    'credit_sale' => 'Venta a Crédito',
+    'credit_sale' => 'CRÉDITO',
     'tooltip_credit_sale' => 'Pago como venta a crédito',
     'add_as_sub_txonomy' => 'Crear como Sub Categoría',
     'select_parent_taxonomy' => 'Seleccionar impuesto principal',
