@@ -315,7 +315,7 @@
 
     </div>
     <div class="col-md-2">
-        <div class="d-flex justify-content-center mt-3 tw-h-auto m-0">
+        <div class="d-flex justify-content-center mt-3 tw-h-auto m-0 no-print">
             <div  id="categories-container" style="display:flex;gap:10px; overflow-y: auto; padding-bottom: 10px;wid">
                 @can('expense.add')
                     <button type="button" title="{{ __('expense.add_expense') }}" data-placement="bottom"
