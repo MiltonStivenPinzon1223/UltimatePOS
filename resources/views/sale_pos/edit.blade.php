@@ -59,14 +59,14 @@
                                         aria-hidden="true"></i> @lang('lang_v1.checkout_multi_pay') </button>
                                 @endif
                                 <div style="width: 10px"></div>
-                                @if (!Gate::check('disable_express_checkout') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
+                                {{-- @if (!Gate::check('disable_express_checkout') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
                                     <button type="button" style="flex: 1; margin-right: 12px"
                                         class="tw-font-bold tw-text-white tw-cursor-pointer tw-text-xs md:tw-text-sm tw-bg-[rgb(40,183,123)] tw-p-2 tw-rounded-md tw-w-[8.5rem] tw-hidden md:tw-flex lg:tw-flex lg:tw-flex-row btn btn-warning lg:tw-items-center lg:tw-justify-center lg:tw-gap-1 @if (!isMobile())  @endif no-print @if ($pos_settings['disable_express_checkout'] != 0 || !array_key_exists('cash', $payment_types)) hide @endif pos-express-finalize"
                                         data-pay_method="cash" title="@lang('tooltip.express_checkout')"> <i class=""
                                             aria-hidden="true"></i> @lang('lang_v1.express_checkout_cash')</button>
-                                @endif 
+                                @endif  --}}
 
-                                @if (!Gate::check('disable_credit_sale') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
+                                {{-- @if (!Gate::check('disable_credit_sale') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
                                     @if (empty($pos_settings['disable_credit_sale_button']))
                                         <input type="hidden" name="is_credit_sale" value="0" id="is_credit_sale">
                                         <button type="button" style="flex: 1; margin-right: 12px; font-size: 15px"
@@ -74,6 +74,17 @@
                                             data-pay_method="credit_sale" title="@lang('lang_v1.tooltip_credit_sale')"
                                             @if (!empty($only_payment)) disabled @endif>
                                             Crédito
+                                        </button>
+                                    @endif
+                                @endif --}}
+								 @if (!Gate::check('disable_credit_sale') || auth()->user()->can('superadmin') || auth()->user()->can('admin'))
+                                    @if (empty($pos_settings['disable_credit_sale_button']))
+                                        <input type="hidden" name="is_credit_sale" value="0" id="is_credit_sale">
+                                        <button type="button" style="flex: 1; margin-right: 12px; font-size: 15px"
+                                            class="  tw-text-gray-700 tw-cursor-pointer tw-text-xs md:tw-text-sm tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-1 no-print pos-express-finalize btn-warning col-xs-6"
+                                            data-pay_method="credit_sale" title="@lang('lang_v1.tooltip_credit_sale')"
+                                            @if (!empty($only_payment)) disabled @endif>
+                                            @lang('lang_v1.credit_sale')
                                         </button>
                                     @endif
                                 @endif

@@ -87,8 +87,7 @@
 				<tr style="flex:1; align-content: center">
 					<td style="border:0px; background-color: black; color: white; font-size: 20px">
 						<b class="">@lang('$')</b> &nbsp;
-						{{-- <span class=" payment-amount input_number"  >0</span> --}}
-						{!! Form::text("payment[$row_index][amount]", @num_format($payment_line['amount']), ['class' => 'payment-amount input_number', 'required', 'id' => "amount_$row_index", 'placeholder' => __('sale.amount'), 'readonly' => $readonly, 'style'=>"width: 80px"]); !!}
+						<span class="price_total"  >0</span>
 					</td>
 				</tr>
 			</tbody>
